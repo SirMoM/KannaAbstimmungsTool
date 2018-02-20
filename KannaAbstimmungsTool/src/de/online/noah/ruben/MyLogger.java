@@ -17,9 +17,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class MyLogger{
 	
-	private static DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yy hh_mm_ss");
+	private static DateTimeFormatter df = DateTimeFormatter.ofPattern("dd_MM_yy  hh_mm_ss");
+	
+	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
 
-	private static File loggerFile = new File(FileUsingClass.DASVERZEICHNIS.getAbsolutePath().toString() + "\\LOG" + LocalDateTime.now().format(df) + ".log");
+	private static File loggerFile = new File(THEDIR.getAbsolutePath().toString() + "\\LOG" + LocalDateTime.now().format(df) + ".log");
 	
 	private static BufferedWriter loggerFileWriter;
 	
@@ -45,7 +47,10 @@ public class MyLogger{
 	
 	public static void createLoggingDatei() {
 
-		FileUsingClass.createDir();
+		if(!THEDIR.exists()) {
+			THEDIR.mkdir();
+		}
+		
 		if(!loggerFile.exists()) {
 			try {
 				loggerFile.createNewFile();
@@ -63,6 +68,7 @@ public class MyLogger{
 			e.printStackTrace();
 		}
 	}
+	
 	
 	
 	

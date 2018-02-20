@@ -20,24 +20,19 @@ public class FileUsingClass {
 	/**
 	 * Das Verzeichnis das vorhanden sein muss wir ggf. erstellt
 	 */
-	final static File DASVERZEICHNIS = new File(System.getProperties().getProperty("user.home") + "\\Documents\\Geburtstags Manager\\" );
+	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\Geburtstags Manager\\" );
 	/**
 	 * Die benutzte CSV-Datei
 	 */
-	static File GEBURTSTAGCSV = new File(DASVERZEICHNIS.getPath() + "\\geburtstage.csv");
+	static File RESULTGCSV = new File(THEDIR.getPath() + "\\result.csv");
 	
 	/**
-	 * Die benutzte HTML-Datei
-	 */
-	static File GEBURTSTAGHTML = new File(DASVERZEICHNIS.getPath() + "\\geburtstage.csv");
-	
-	/**
-	 * Speichert einen String in die CSV Datei geburtstage.csv
+	 * Speichert einen String in die CSV Datei result.csv
 	 * @param csvOutputString Der String der in die CSV-Datei zu speichern ist
 	 */
 	public static void inCsvDateiSpeichern(String csvOutputString) {
 		try {
-			BufferedWriter bufferedWriterCsv = new BufferedWriter(new FileWriter(GEBURTSTAGCSV));
+			BufferedWriter bufferedWriterCsv = new BufferedWriter(new FileWriter(RESULTGCSV));
 			bufferedWriterCsv.write(csvOutputString);
 			bufferedWriterCsv.close();
 		} catch (IOException e) {
@@ -52,29 +47,10 @@ public class FileUsingClass {
 	 */
 	//TODO Mit String[][] vereinbar machen
 	public static String[][] StringArrayArrayAusCsv() {
-		createDir();
 		ArrayList<String[]> zeilen = new ArrayList<String[]>();
 		
-		if(GEBURTSTAGCSV.exists() == false) {
-			try {
-				GEBURTSTAGCSV.getParentFile().mkdir();
-				GEBURTSTAGCSV.createNewFile();
-			} catch (Exception e) {
-				e.printStackTrace();
-				MyLogger.log(e.getStackTrace().toString(),e);
-			}
-		}
-		if(GEBURTSTAGHTML.exists() == false) {
-			try {
-				GEBURTSTAGHTML.createNewFile();
-			} catch (Exception e) {
-				e.printStackTrace();
-				MyLogger.log(e.getStackTrace().toString(), e);
-			}
-		}
-		
 		try {
-			BufferedReader bufferedReaderCsv = new BufferedReader(new FileReader(GEBURTSTAGCSV));
+			BufferedReader bufferedReaderCsv = new BufferedReader(new FileReader(RESULTGCSV));
 			String zeile;
 			while((zeile = bufferedReaderCsv.readLine()) != null) {
 				zeilen.add(zeile.split(";"));
@@ -90,44 +66,20 @@ public class FileUsingClass {
 		return zeilenArray;
 	}
 	
-	public static void inHTMLDateiSpeichern() {
-		try {
-			BufferedWriter bufferedWriterHTML = new BufferedWriter(new FileWriter(GEBURTSTAGHTML));
-//			TODO Komplette HTML-Seite mit richtigem Inhalt füllen
-			bufferedWriterHTML.write("<!doctype html>\r");
-			bufferedWriterHTML.write("<html lang=\"de\">\r");
-				bufferedWriterHTML.write("\t<head>\r");
-					bufferedWriterHTML.write("\t\t <title> Geburtstage </title>\r");
-				bufferedWriterHTML.write("\t</head>\r");
-				bufferedWriterHTML.write("\t<body bgcolor=\"#E6E6FA\">\r");
-				bufferedWriterHTML.write("\t\t<h1>INHALT</h1>\r");
-				bufferedWriterHTML.write("\t</body>\r");
-			bufferedWriterHTML.write("</html>\r");
-			
-			bufferedWriterHTML.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			MyLogger.log(e.getStackTrace().toString(), e);
+	public static void createDirAndFile() {
+		
+		if(!THEDIR.exists()) {
+			THEDIR.mkdir();
 		}
-	}
-	
-	public static URI getURI() {
-		URI uri = FileUsingClass.GEBURTSTAGHTML.toURI();
-		return uri;
-	}
-	
-	public static void openHTMLFile() {
-		try {
-			Desktop.getDesktop().browse(FileUsingClass.getURI());
-		} catch (Exception e) {
-			e.printStackTrace();
-			MyLogger.log(e.getStackTrace().toString(), e);
-		}
-	}
-	
-	public static void createDir() {
-		if(!DASVERZEICHNIS.exists()) {
-			DASVERZEICHNIS.mkdir();
-		}
+		
+		if(RESULTGCSV.exists() == false) {
+			try {
+				RESULTGCSV.getParentFile().mkdir();
+				RESULTGCSV.createNewFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+				MyLogger.log(e.getStackTrace().toString(),e);
+			}
+		}		
 	}
 }

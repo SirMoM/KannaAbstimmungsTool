@@ -6,9 +6,12 @@ package de.online.noah.ruben;
  */
 public class MainProgramm {
 	public static void main(String[] args) {
+		System.out.println("All hail Satan");
 
 		MyLogger.createLoggingDatei();
-		System.out.println("hello");
+		FileUsingClass.createDirAndFile();
+		FileUsingClass.inCsvDateiSpeichern("test;test2");
+		MyLogger.log("All hail Satan");
 	}
 }
 
