@@ -20,7 +20,10 @@ public class FileUsingClass {
 	/**
 	 * Das Verzeichnis das vorhanden sein muss wir ggf. erstellt
 	 */
-	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\Geburtstags Manager\\" );
+	//final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
+	
+	final static File THEDIR = new File("C:\\_PDATEN\\i13az81" + "\\Documents\\KanaUmfrageTool\\" );
+	
 	/**
 	 * Die benutzte CSV-Datei
 	 */
@@ -69,6 +72,7 @@ public class FileUsingClass {
 	public static void createDirAndFile() {
 		
 		if(!THEDIR.exists()) {
+			System.out.println(THEDIR.getAbsolutePath());
 			THEDIR.mkdir();
 		}
 		
@@ -77,6 +81,7 @@ public class FileUsingClass {
 				RESULTGCSV.getParentFile().mkdir();
 				RESULTGCSV.createNewFile();
 			} catch (Exception e) {
+				System.out.println("note");
 				e.printStackTrace();
 				MyLogger.log(e.getStackTrace().toString(),e);
 			}

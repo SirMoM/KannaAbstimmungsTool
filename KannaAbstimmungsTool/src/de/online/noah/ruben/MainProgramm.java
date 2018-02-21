@@ -8,10 +8,14 @@ public class MainProgramm {
 	public static void main(String[] args) {
 		System.out.println("All hail Satan");
 
-		MyLogger.createLoggingDatei();
 		FileUsingClass.createDirAndFile();
+		MyLogger.createLoggingDatei();
 		FileUsingClass.inCsvDateiSpeichern("test;test2");
 		MyLogger.log("All hail Satan");
+		
+		HauptView x = new HauptView();
+		x.toggleViews(x.getThemenAuswahlView());
+		x.toggleViews(x.getPersonErfassenView());
 	}
 }
 
