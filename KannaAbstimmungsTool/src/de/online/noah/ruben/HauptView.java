@@ -4,6 +4,10 @@
 package de.online.noah.ruben;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.*;
 
 /**
@@ -20,7 +24,7 @@ public class HauptView extends JFrame {
 	public static final int COLLUMCOUNT = 3;
 	public static final String[] COLUMNAMES = new String[] {"Thema 1", "Thema 2", "Thema 3"};
 	
-	private JButton thema1 = new JButton();
+	private JButton thema1 = new JButton("Tsda");
 	private JButton thema2 = new JButton();
 	private JButton thema3 = new JButton();
 	
@@ -81,8 +85,12 @@ public class HauptView extends JFrame {
 	public void createAllComponents() {
 		thema1.setText("Thema 1");
 		thema1.setBackground(new Color(0, 255, 0));
+		thema1.setName("asd");
+		thema1.addActionListener(new ThemenAuswahlController());
+		
 		thema2.setText("Thema 2");
 		thema2.setBackground(new Color(0, 255, 0));
+		
 		thema3.setText("Thema 3");
 		thema3.setBackground(new Color(0, 255, 0));
 	}

@@ -15,7 +15,7 @@ public class MainProgramm {
 		
 		HauptView x = new HauptView();
 		x.toggleViews(x.getThemenAuswahlView());
-		x.toggleViews(x.getPersonErfassenView());
+//		x.toggleViews(x.getPersonErfassenView());
 	}
 }
 
