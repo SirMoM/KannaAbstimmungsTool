@@ -29,20 +29,7 @@ public class HauptView extends JFrame {
 	
 	
 	
-	public enum Gender {
-		M("m", "Männlich"),
-		F("f", "Weiblich"),
-		AAH("aah", "Apache Attack Helicopter");
-		
-		private String code;
-		private String beschreibung;
-		
-		Gender( final String code, final String beschreibung ) {
-			this.code = code;
-			this.beschreibung = beschreibung;
-		}
-		
-	}
+
 	
 	// ThemenAuswahlView Components
 	private MyButton thema1 = new MyButton("Thema 1", this);
@@ -136,7 +123,6 @@ public class HauptView extends JFrame {
 	public void createAllComponents() {
 		thema1.setText("Thema 1");
 		thema1.setBackground(new Color(0, 255, 0));
-		thema1.addActionListener(new MyActionListener(this));
 		thema1.setActionCommand("asd");
 		System.out.println(thema1.getAction());
 		
@@ -170,9 +156,9 @@ public class HauptView extends JFrame {
 			}
 		});
 		
-		genderComboBox.addItem(Gender.M.beschreibung);
-		genderComboBox.addItem(Gender.F.beschreibung);
-		genderComboBox.addItem(Gender.AAH.beschreibung);
+		genderComboBox.addItem(Gender.M.getBeschreibung());
+		genderComboBox.addItem(Gender.F.getBeschreibung());
+		genderComboBox.addItem(Gender.AAH.getBeschreibung());
 		
 		datenErfassenButton.setText("Daten erfassen");
 		datenErfassenButton.setActionCommand("datenErfassenButton");
@@ -184,6 +170,7 @@ public class HauptView extends JFrame {
 		getContentPane().removeAll();
 		getContentPane().add(thePanelToShow);
 		getContentPane().doLayout();
+		thePanelToShow.doLayout();
 	}
 
 	public JPanel getPersonErfassenView() {
