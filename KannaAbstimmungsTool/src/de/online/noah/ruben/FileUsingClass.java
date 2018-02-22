@@ -20,9 +20,9 @@ public class FileUsingClass {
 	/**
 	 * Das Verzeichnis das vorhanden sein muss wir ggf. erstellt
 	 */
-	//final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
+	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
 	
-	final static File THEDIR = new File("C:\\_PDATEN\\i13az81" + "\\Documents\\KanaUmfrageTool\\" );
+//	final static File THEDIR = new File("C:\\_PDATEN\\i13az81" + "\\Documents\\KanaUmfrageTool\\" );
 	
 	/**
 	 * Die benutzte CSV-Datei

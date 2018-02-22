@@ -29,7 +29,7 @@ public class MyActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		MyLogger.log(e.paramString());
 		HauptView hv = (HauptView) myButton.getView();
-		hv.toggleViews(hv.getThemenAuswahlView());
+		hv.setView(hv.getThemenAuswahlView());
 	}
 	
 	

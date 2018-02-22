@@ -19,9 +19,9 @@ public class MyLogger{
 	
 	private static DateTimeFormatter df = DateTimeFormatter.ofPattern("dd_MM_yyhh_mm_ss");
 	
-//	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
+	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
 	
-	final static File THEDIR = new File("C:\\_PDATEN\\i13az81" + "\\Documents\\KanaUmfrageTool\\" );
+//	final static File THEDIR = new File("C:\\_PDATEN\\i13az81" + "\\Documents\\KanaUmfrageTool\\" );
 	
 	private static File loggerFile = new File(THEDIR.getAbsolutePath().toString() + "\\LOG" + LocalDateTime.now().format(df) + ".log");
 	

@@ -17,13 +17,14 @@ import javax.swing.*;
  */
 public class HauptView extends JFrame {
 	
-	private JPanel PersonErfassenView = new JPanel();
-	private JPanel ThemenAuswahlView = new JPanel();
+	private JPanel personErfassenView = new JPanel();
+	private JPanel themenAuswahlView = new JPanel();
+	private JPanel meinungsAbgabeView = new JPanel();
 	
-	
-	public static final int ROWCOUNT = 1;
-	public static final int COLLUMCOUNT = 3;
-	public static final String[] COLUMNAMES = new String[] {"Thema 1", "Thema 2", "Thema 3"};
+
+//	public static final int ROWCOUNT = 1;
+//	public static final int COLLUMCOUNT = 3;
+//	public static final String[] COLUMNAMES = new String[] {"Thema 1", "Thema 2", "Thema 3"};
 	
 	
 	
@@ -43,10 +44,10 @@ public class HauptView extends JFrame {
 		
 	}
 	
-	
-	private JButton thema1 = new JButton("Tsda");
-	private JButton thema2 = new JButton();
-	private JButton thema3 = new JButton();
+	// ThemenAuswahlView Components
+	private MyButton thema1 = new MyButton("Thema 1", this);
+	private MyButton thema2 = new MyButton("Thema 1", this);
+	private MyButton thema3 = new MyButton("Thema 1", this);
 	
 	// PersonErfassenView Components
 	private JTextField introduction = new JTextField();
@@ -58,20 +59,6 @@ public class HauptView extends JFrame {
 	private JLabel genderLabel = new JLabel("Geschlecht");
 	
 	private MyButton datenErfassenButton = new MyButton("datenErfassenButton", this);
-	
-	
-	
-	
-	public JPanel getPersonErfassenView() {
-		return PersonErfassenView;
-	}
-
-	public JPanel getThemenAuswahlView() {
-		return ThemenAuswahlView;
-	}
-	
-	
-	
 	
 	/**
 	 * 
@@ -189,14 +176,38 @@ public class HauptView extends JFrame {
 		
 		datenErfassenButton.setText("Daten erfassen");
 		datenErfassenButton.setActionCommand("datenErfassenButton");
-		datenErfassenButton.addActionListener(new TestActionListener(this));
+		datenErfassenButton.addActionListener(new MyActionListener(datenErfassenButton));
 		
 	}
 	
-	public void toggleViews(JPanel thePanelToShow) {
+	public void setView(JPanel thePanelToShow) {
 		getContentPane().removeAll();
 		getContentPane().add(thePanelToShow);
 		getContentPane().doLayout();
+	}
+
+	public JPanel getPersonErfassenView() {
+		return personErfassenView;
+	}
+
+	public JPanel getThemenAuswahlView() {
+		return themenAuswahlView;
+	}
+
+	public JPanel getMeinungsAbgabeView() {
+		return meinungsAbgabeView;
+	}
+
+	public void setPersonErfassenView(JPanel personErfassenView) {
+		this.personErfassenView = personErfassenView;
+	}
+
+	public void setThemenAuswahlView(JPanel themenAuswahlView) {
+		this.themenAuswahlView = themenAuswahlView;
+	}
+
+	public void setMeinungsAbgabeView(JPanel meinungsAbgabeView) {
+		this.meinungsAbgabeView = meinungsAbgabeView;
 	}
 
 }
