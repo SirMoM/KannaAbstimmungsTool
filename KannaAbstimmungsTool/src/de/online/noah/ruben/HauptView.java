@@ -136,7 +136,7 @@ public class HauptView extends JFrame {
 	public void createAllComponents() {
 		thema1.setText("Thema 1");
 		thema1.setBackground(new Color(0, 255, 0));
-		thema1.addActionListener(new TestActionListener(this));
+		thema1.addActionListener(new MyActionListener(this));
 		thema1.setActionCommand("asd");
 		System.out.println(thema1.getAction());
 		
