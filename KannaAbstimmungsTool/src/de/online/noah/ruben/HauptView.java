@@ -57,7 +57,7 @@ public class HauptView extends JFrame {
 	private JComboBox<String> genderComboBox = new JComboBox<>(); 
 	private JLabel genderLabel = new JLabel("Geschlecht");
 	
-	private JButton datenErfassenButton = new JButton();
+	private MyButton datenErfassenButton = new MyButton("datenErfassenButton", this);
 	
 	
 	
@@ -188,7 +188,7 @@ public class HauptView extends JFrame {
 		genderComboBox.addItem(Gender.AAH.beschreibung);
 		
 		datenErfassenButton.setText("Daten erfassen");
-		datenErfassenButton.setActionCommand("datenErfassen");
+		datenErfassenButton.setActionCommand("datenErfassenButton");
 		datenErfassenButton.addActionListener(new TestActionListener(this));
 		
 	}

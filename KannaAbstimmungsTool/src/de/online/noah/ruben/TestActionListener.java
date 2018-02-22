@@ -26,15 +26,15 @@ public class TestActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Test");
-		if (e.getActionCommand().equals("asd")) {
-			System.out.println("X");
-		}else if (e.getActionCommand().equals("datenErfassen")) {
-			view.toggleViews(view.getThemenAuswahlView());
-			view.getThemenAuswahlView().doLayout();
+//		System.out.println("Test");
+//		if (e.getActionCommand().equals("asd")) {
+//			System.out.println("X");
+//		}else if (e.getActionCommand().equals("datenErfassenButton")) {
+//			view.toggleViews(view.getThemenAuswahlView());
+//			view.getThemenAuswahlView().doLayout();
 //			view.doLayout();
-		}
-		
+//		}
+//		
 	}
 
 }
