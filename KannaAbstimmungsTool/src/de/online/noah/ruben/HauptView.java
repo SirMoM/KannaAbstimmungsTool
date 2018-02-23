@@ -3,49 +3,58 @@
  */
 package de.online.noah.ruben;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import java.util.regex.Pattern;
 
-import javax.swing.*;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 /**
  * @author Noah Ruben
  *
  */
-public class HauptView extends JFrame {
-	
+public class HauptView extends JFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
+
+	private Abstimmung currentAbstimmung = new Abstimmung();
+
 	private JPanel personErfassenView = new JPanel();
 	private JPanel themenAuswahlView = new JPanel();
 	private JPanel meinungsAbgabeView = new JPanel();
-	
 
-//	public static final int ROWCOUNT = 1;
-//	public static final int COLLUMCOUNT = 3;
-//	public static final String[] COLUMNAMES = new String[] {"Thema 1", "Thema 2", "Thema 3"};
-	
-	
-	
-	
 
-	
-	// ThemenAuswahlView Components
+	// themenAuswahlView Components
 	private MyButton thema1 = new MyButton("Thema 1", this);
-	private MyButton thema2 = new MyButton("Thema 1", this);
-	private MyButton thema3 = new MyButton("Thema 1", this);
-	
-	// PersonErfassenView Components
-	private JTextField introduction = new JTextField();
-	
+	private MyButton thema2 = new MyButton("Thema 2", this);
+	private MyButton thema3 = new MyButton("Thema 3", this);
+
+	// personErfassenView Components
+	private JLabel introduction = new JLabel();
+
 	private JTextField ageTextField = new JTextField();
 	private JLabel ageLabel = new JLabel("Alter");
-	
+
 	private JComboBox<String> genderComboBox = new JComboBox<>(); 
 	private JLabel genderLabel = new JLabel("Geschlecht");
-	
-	private MyButton datenErfassenButton = new MyButton("datenErfassenButton", this);
+
+	private MyButton datenErfassenButton = new MyButton("Daten Erfassen Button", this);
+
+	//	meinungsAbgabeView Components
+	private JLabel question = new JLabel("Frage");
+	private JComboBox<String> answers = new JComboBox<String>(); 
 	
 	/**
 	 * 
@@ -53,119 +62,108 @@ public class HauptView extends JFrame {
 	public HauptView() {
 		super();
 		initViews();
-		setVisible(true);
 		setTitle("Kana Abstimmungs Tool");
+		setView(personErfassenView);
+		setVisible(true);
 	}
-	
+
 	public void initViews() {
 		this.setSize(1000,500);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setLayout(new GridLayout(1,1));
+
+		initPersonErfassenView();
+
+		initThemenAuswahlView();
+
+		initMeinungsAbgabeView();
+
+	}
+
+	private void initMeinungsAbgabeView() {
+		meinungsAbgabeView.setLayout(new GridBagLayout());
 		
-		createAllComponents();
-	
+		
+	}
+
+	private void initPersonErfassenView() {
+		//Introduction Label
+		introduction.setText("Bitte Alter und Geschlecht eingtagen");		
+		
+		// Age Textfield 
+		ageTextField.setText("JJ");
+		ageTextField.setEditable(true);
+		ageTextField.setSize(500, 20);
+		ageTextField.addMouseListener(new TextFieldMouseListener(ageTextField));
+
+		//Gender Combobox /Dropdown Menue
+		genderComboBox.addItem(Gender.M.getBeschreibung());
+		genderComboBox.addItem(Gender.F.getBeschreibung());
+		genderComboBox.addItem(Gender.AAH.getBeschreibung());
+
+		// Datenerfassen Button die 1.
+		datenErfassenButton.setText("Daten erfassen");
+		datenErfassenButton.setActionCommand("datenErfassenButton1");
+
+		//Panel Setup
 		getPersonErfassenView().setLayout(new GridBagLayout());
-		getThemenAuswahlView().setLayout(new GridLayout());
+		getPersonErfassenView().setBackground(Color.CYAN);
 
-		GridBagConstraints themenAuswahlViewConstraints = new GridBagConstraints();
-
-		themenAuswahlViewConstraints.fill = GridBagConstraints.BOTH;
-		themenAuswahlViewConstraints.anchor = GridBagConstraints.CENTER;
-		themenAuswahlViewConstraints.insets = new Insets(10,10,10,10);
-		themenAuswahlViewConstraints.gridwidth = 1;
-		themenAuswahlViewConstraints.gridheight = 1;
-
-//		themenAuswahlViewConstraints.gridx = 0; 
-//		themenAuswahlViewConstraints.gridy = 1;
-		getThemenAuswahlView().add(thema1);
-		
-//		themenAuswahlViewConstraints.gridy = 2;
-		getThemenAuswahlView().add(thema2);
-		
-//		themenAuswahlViewConstraints.gridy = 2;
-		getThemenAuswahlView().add(thema3);
-		
 		GridBagConstraints personenViewConstraints = new GridBagConstraints();
 		personenViewConstraints.insets = new Insets(20, 20, 20, 20);
 
 		personenViewConstraints.gridy = 0;
 		personenViewConstraints.gridx = 0;
-		
-		getPersonErfassenView().setBackground(Color.CYAN);
-		
+		getPersonErfassenView().add(introduction);
+
+		personenViewConstraints.gridy = 1;
 		getPersonErfassenView().add(ageLabel, personenViewConstraints);
-		
-		personenViewConstraints.gridy = 0; 
+
+		personenViewConstraints.gridy = 1; 
 		personenViewConstraints.gridx = 2;
 		personenViewConstraints.fill = GridBagConstraints.HORIZONTAL;
-//		personenViewConstraints.
-		
 		getPersonErfassenView().add(ageTextField, personenViewConstraints);
-		
-		personenViewConstraints.gridy = 1; 
+
+		personenViewConstraints.gridy = 2; 
 		personenViewConstraints.gridx = 0;
-		
 		getPersonErfassenView().add(genderLabel, personenViewConstraints);
-		
-		personenViewConstraints.gridy = 1; 
-		personenViewConstraints.gridx = 2;
-		
-		getPersonErfassenView().add(genderComboBox, personenViewConstraints);
-		
+
 		personenViewConstraints.gridy = 2; 
 		personenViewConstraints.gridx = 2;
-		
+		getPersonErfassenView().add(genderComboBox, personenViewConstraints);
+
+		personenViewConstraints.gridy = 3; 
+		personenViewConstraints.gridx = 2;
 		getPersonErfassenView().add(datenErfassenButton, personenViewConstraints);
-		
+
+
 	}
-	
-	public void createAllComponents() {
+
+	private void initThemenAuswahlView() {
+		// Thema 1 Button
 		thema1.setText("Thema 1");
 		thema1.setBackground(new Color(0, 255, 0));
-		thema1.setActionCommand("asd");
-		System.out.println(thema1.getAction());
-		
+		thema1.setActionCommand("t1");
+
+
+		// Thema 2 Button
 		thema2.setText("Thema 2");
 		thema2.setBackground(new Color(0, 255, 0));
-		
+		thema2.setActionCommand("t2");
+
+		// Thema 3 Button
 		thema3.setText("Thema 3");
 		thema3.setBackground(new Color(0, 255, 0));
-		
-		//PersonenErfassenView Components
-		introduction.setText("Bitte Alter und Geschlecht eingtagen");		
+		thema3.setActionCommand("t3");
 
-		ageTextField.setText("yy");
-		ageTextField.setEditable(true);
-		System.out.println("With: " + ageTextField.getSize().getWidth() + "Height :" + ageTextField.getSize().getHeight());
-		
-		ageTextField.setSize(1000, 20);
-		System.out.println("With: " + ageTextField.getSize().getWidth() + "Height :" + ageTextField.getSize().getHeight());
-		
-		ageTextField.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JTextField SourceTextField = (JTextField) (e.getSource());
-				String ageInput = SourceTextField.getText();
-				if(ageInput.matches("[1-9][0-9]{0,1}")) {
-					System.out.println("true");
-				}else {
-					System.out.println("false");
-				}
-			}
-		});
-		
-		genderComboBox.addItem(Gender.M.getBeschreibung());
-		genderComboBox.addItem(Gender.F.getBeschreibung());
-		genderComboBox.addItem(Gender.AAH.getBeschreibung());
-		
-		datenErfassenButton.setText("Daten erfassen");
-		datenErfassenButton.setActionCommand("datenErfassenButton");
-		datenErfassenButton.addActionListener(new MyActionListener(datenErfassenButton));
-		
+		// Panel Setup
+		getThemenAuswahlView().setLayout(new GridLayout());
+		getThemenAuswahlView().add(thema1);
+		getThemenAuswahlView().add(thema2);
+		getThemenAuswahlView().add(thema3);
 	}
-	
+
 	public void setView(JPanel thePanelToShow) {
 		getContentPane().removeAll();
 		getContentPane().add(thePanelToShow);
@@ -183,6 +181,42 @@ public class HauptView extends JFrame {
 
 	public JPanel getMeinungsAbgabeView() {
 		return meinungsAbgabeView;
+	}
+
+	/**
+	 * @return the ageTextField
+	 */
+	public JTextField getAgeTextField() {
+		return ageTextField;
+	}
+
+	/**
+	 * @return the genderComboBox
+	 */
+	public JComboBox<String> getGenderComboBox() {
+		return genderComboBox;
+	}
+
+	public Abstimmung getCurrentAbstimmung() {
+		return currentAbstimmung;
+	}
+
+	public void setCurrentAbstimmung(Abstimmung currentAbstimmung) {
+		this.currentAbstimmung = currentAbstimmung;
+	}
+
+	/**
+	 * @param ageTextField the ageTextField to set
+	 */
+	public void setAgeTextField(JTextField ageTextField) {
+		this.ageTextField = ageTextField;
+	}
+
+	/**
+	 * @param genderComboBox the genderComboBox to set
+	 */
+	public void setGenderComboBox(JComboBox<String> genderComboBox) {
+		this.genderComboBox = genderComboBox;
 	}
 
 	public void setPersonErfassenView(JPanel personErfassenView) {

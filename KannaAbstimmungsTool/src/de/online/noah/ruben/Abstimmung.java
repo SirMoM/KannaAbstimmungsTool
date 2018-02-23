@@ -3,18 +3,18 @@
  */
 package de.online.noah.ruben;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 /**
  * @author Noah Ruben
- *
- */
-/**
- * @author i13az81
  *
  */
 public class Abstimmung {
 	private int age;
 	private Gender gender;
 	private String pickedThema;
+	private int themaId;
+	//TODO Antwort als String
 	private AnswerEnum answer;
 	/**
 	 * @return the age
@@ -39,6 +39,12 @@ public class Abstimmung {
 	 */
 	public AnswerEnum getAnswer() {
 		return answer;
+	}
+	public int getThemaId() {
+		return themaId;
+	}
+	public void setThemaId(int themaId) {
+		this.themaId = themaId;
 	}
 	/**
 	 * @param age the age to set
@@ -66,15 +72,17 @@ public class Abstimmung {
 	}
 	
 	public String toCSVString() {
-		return "Abstimmung;" + getAge() + ";" + getGender().getBeschreibung() + ";" + getPickedThema() + ";" + getAnswer().getAntworttext();
+		return "Abstimmung;" + getAge() + ";" + getGender().getBeschreibung() + ";" + getThemaId() + ";" + getAnswer().getAntworttext();
 	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Abstimmung [age = " + getAge() + ", gender = " + getGender().getBeschreibung() + ", pickedThema = " + getPickedThema() + ", answer = "
-				+ getAnswer().getAntworttext() + "]";
+		return "Abstimmung [age = " + getAge() + ", gender = " + getGender() + ", pickedThema = " + getPickedThema() + ", themaId = "
+				+ getThemaId() + ", answer = " + getAnswer().getAntworttext().hashCode() + "]";
 	}
+	
+	
+	
 }

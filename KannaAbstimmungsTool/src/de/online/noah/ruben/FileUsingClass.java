@@ -32,13 +32,11 @@ public class FileUsingClass {
 	 * @param csvOutputString Der String der in die CSV-Datei zu speichern ist
 	 */
 	public static void inCsvDateiSpeichern(String csvOutputString) {
-		try {
-			BufferedWriter bufferedWriterCsv = new BufferedWriter(new FileWriter(RESULTGCSV));
+		try(BufferedWriter bufferedWriterCsv = new BufferedWriter(new FileWriter(RESULTGCSV));) {
 			bufferedWriterCsv.write(csvOutputString);
-			bufferedWriterCsv.close();
+			bufferedWriterCsv.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
-			MyLogger.log(e.getStackTrace().toString(), e);
+			MyLogger.log("Konnte nicht in CSV-Datei schreiben", e);
 		}
 	}
 	
@@ -47,19 +45,18 @@ public class FileUsingClass {
 	 * @return zeilenArray Das Array das zurück gegeben wird
 	 */
 	//TODO Mit String[][] vereinbar machen
-	public static String[][] StringArrayArrayAusCsv() {
+	public static String[][] stringArrayArrayAusCsv() {
 		ArrayList<String[]> zeilen = new ArrayList<String[]>();
 		
-		try {
-			BufferedReader bufferedReaderCsv = new BufferedReader(new FileReader(RESULTGCSV));
+		try(BufferedReader bufferedReaderCsv = new BufferedReader(new FileReader(RESULTGCSV))){
+			
 			String zeile;
 			while((zeile = bufferedReaderCsv.readLine()) != null) {
 				zeilen.add(zeile.split(";"));
 			}
 			bufferedReaderCsv.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-			MyLogger.log(e.getStackTrace().toString(), e);
+			MyLogger.log("Can't read CSV-File", e);
 		}
 		
 		String[][] zeilenArray = new String[zeilen.toArray().length][2];
@@ -70,19 +67,15 @@ public class FileUsingClass {
 	public static void createDirAndFile() {
 		
 		if(!THEDIR.exists()) {
-			System.out.println(THEDIR.getAbsolutePath());
 			THEDIR.mkdir();
 		}
 		
-		if(RESULTGCSV.exists() == false) {
+		if(!RESULTGCSV.exists()) {
 			try {
-				RESULTGCSV.getParentFile().mkdir();
 				RESULTGCSV.createNewFile();
 			} catch (Exception e) {
-				System.out.println("note");
-				e.printStackTrace();
-				MyLogger.log(e.getStackTrace().toString(),e);
+				MyLogger.log("Can't create file or directory",e);
 			}
-		}		
+		}
 	}
 }

@@ -6,7 +6,6 @@ package de.online.noah.ruben;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /**
@@ -14,14 +13,23 @@ import javax.swing.JFrame;
  *
  */
 public class MyButton extends JButton {
-	private String name; 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1337L;
+	/**
+	 * 
+	 */
+
+	private String myName; 
 	private JFrame view;
-	
+
 	/**
 	 * 
 	 */
 	public MyButton(String name, JFrame viewOfTheButten) {
-		this.name = name;
+		this.myName = name;
 		this.view = viewOfTheButten;
 		this.addActionListener(new MyActionListener(this));
 	}
@@ -47,14 +55,13 @@ public class MyButton extends JButton {
 	public MyButton(String text, Icon icon) {
 		super(text, icon);
 	}
-
 	
-	public String getName() {
-		return name;
+	public String getMyName() {
+		return myName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMyName(String name) {
+		this.myName = name;
 	}
 
 	public JFrame getView() {

@@ -8,18 +8,20 @@ package de.online.noah.ruben;
  *
  */
 public enum AnswerEnum {
-	T1Answer1(1, "Thema 1", "bsp Antworttext");
+	T1_ANSWERS(1, new String[] {"Antwort 1", "Antwort 2", "Antwort 3", "Antwort 4", "Antwort 5"}),
 	
+	T2_ANSWERS(2, new String[] {"Antwort 6", "Antwort 7", "Antwort 8", "Antwort 9", "Antwort 10"}),
+	
+	T3_ANSWERS(3, new String[] {"Antwort 11", "Antwort 12", "Antwort 13", "Antwort 14", "Antwort 15"});
+
 	
 	private int id;
-	private String thema;
-	private String antworttext;
+	private String[] antworten;
 	
 	
-	private AnswerEnum(int id, String thema, String antworttext) {
+	private AnswerEnum(int id, String[] antworten) {
 		this.id = id;
-		this.thema = thema;
-		this.antworttext = antworttext;
+		this.antworten = antworten;
 	}
 
 
@@ -30,46 +32,10 @@ public enum AnswerEnum {
 		return id;
 	}
 
-
 	/**
-	 * @return the thema
+	 * @return the antworten Array
 	 */
-	public String getThema() {
-		return thema;
+	public String[] getAntworttext() {
+		return antworten;
 	}
-
-
-	/**
-	 * @return the antworttext
-	 */
-	public String getAntworttext() {
-		return antworttext;
-	}
-
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	/**
-	 * @param thema the thema to set
-	 */
-	public void setThema(String thema) {
-		this.thema = thema;
-	}
-
-
-	/**
-	 * @param antworttext the antworttext to set
-	 */
-	public void setAntworttext(String antworttext) {
-		this.antworttext = antworttext;
-	}
-	
-	
-	
 }

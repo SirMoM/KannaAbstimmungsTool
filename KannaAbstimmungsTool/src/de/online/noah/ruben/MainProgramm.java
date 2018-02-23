@@ -6,11 +6,8 @@ package de.online.noah.ruben;
  */
 public class MainProgramm {
 	public static void main(String[] args) {
-		System.out.println("All hail Satan");
-
 		FileUsingClass.createDirAndFile();
 		MyLogger.createLoggingDatei();
-		FileUsingClass.inCsvDateiSpeichern("test;test2");
 		MyLogger.log("All hail Satan");
 		
 		HauptView x = new HauptView();

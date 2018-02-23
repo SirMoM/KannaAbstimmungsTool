@@ -3,10 +3,12 @@
  */
 package de.online.noah.ruben;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,15 +16,12 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.online.noah.ruben.FileUsingClass;
-import de.online.noah.ruben.MyLogger;
 import mockit.Expectations;
 import mockit.Mock;
 import mockit.Mocked;
-import mockit.Verifications;
 
 /**
- * @author i13az81
+ * @author Noah Ruben
  *
  */
 public class FileUsingClassTest {
@@ -33,6 +32,10 @@ public class FileUsingClassTest {
 	
 	FileUsingClass classUnderTest;
 	
+//	@Mocked
+//	FileUsingClass fileUsingClassMocked;
+	
+	
 	
 	/**
 	 * @throws java.lang.Exception
@@ -41,6 +44,21 @@ public class FileUsingClassTest {
 	public void setUp() throws Exception {
 		classUnderTest = new FileUsingClass();
 	}
+	
+	@Test
+	public void testCreateDirAndFileTHEDIR() {
+		FileUsingClass.createDirAndFile();
+		
+		assertTrue(FileUsingClass.THEDIR.exists());
+	}
+
+	@Test
+	public void testCreateDirAndFileRESULTGCSV() {
+		FileUsingClass.createDirAndFile();
+		
+		assertTrue(FileUsingClass.RESULTGCSV.exists());
+
+	}
 
 	/**
 	 * Test method for {@link de.online.noah.ruben.FileUsingClass#inCsvDateiSpeichern(java.lang.String)}.
@@ -48,7 +66,8 @@ public class FileUsingClassTest {
 	 */
 	@Test
 	public void testInCsvDateiSpeichern(){
-		classUnderTest.inCsvDateiSpeichern("TestString");
+		FileUsingClass.createDirAndFile();
+		FileUsingClass.inCsvDateiSpeichern("TestString");
 		
 		String zeile = null;
 		
@@ -65,30 +84,35 @@ public class FileUsingClassTest {
 		
 	}
 	
+
+	@Test(expected = Exception.class)
+	public void testInCsvDateiSpeichern3(@Mocked FileUsingClass f) throws IOException{
+		
+		new Expectations() {
+			{
+				FileUsingClass.RESULTGCSV.exists();
+				result = false;
+
+				FileUsingClass.RESULTGCSV.createNewFile();
+				result = new Exception();
+			}
+		};
+		
+		
+		FileUsingClass.createDirAndFile();
+		
+		
+	}
+	
 	@Test
 	public void testStringArrayArrayAusCsv() throws IOException {
+		FileUsingClass.createDirAndFile();
 		
 		String[][] exp2 = {{"x","y","z"}};
 		
-		classUnderTest.inCsvDateiSpeichern("x;y;z");
+		FileUsingClass.inCsvDateiSpeichern("x;y;z");
 		
-		assertArrayEquals(classUnderTest.StringArrayArrayAusCsv(), exp2 );
+		assertArrayEquals(FileUsingClass.stringArrayArrayAusCsv(), exp2 );
 		
 	}
-
-	@Test
-	public void testCreateDirAndFileTHEDIR() {
-		classUnderTest.createDirAndFile();
-		
-		assertTrue(classUnderTest.THEDIR.exists());
-	}
-
-	@Test
-	public void testCreateDirAndFileRESULTGCSV() {
-		classUnderTest.createDirAndFile();
-		
-		assertTrue(classUnderTest.RESULTGCSV.exists());
-
-	}
-
 }

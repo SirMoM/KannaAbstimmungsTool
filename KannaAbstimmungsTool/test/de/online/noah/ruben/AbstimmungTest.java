@@ -12,7 +12,7 @@ import de.online.noah.ruben.AnswerEnum;
 import de.online.noah.ruben.Gender;
 
 /**
- * @author i13az81
+ * @author Noah Ruben
  *
  */
 
@@ -27,7 +27,7 @@ public class AbstimmungTest {
 	public void setUp() throws Exception {
 		classUnderTest = new Abstimmung();
 		classUnderTest.setAge(1);
-		classUnderTest.setAnswer(AnswerEnum.T1Answer1);
+		classUnderTest.setAnswer(AnswerEnum.T1_ANSWERS);
 		classUnderTest.setGender(Gender.AAH);
 		classUnderTest.setPickedThema("1");
 	}

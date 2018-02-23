@@ -23,6 +23,19 @@ public enum Gender {
 		this.beschreibung = BESCHREIBUNG;
 	}
 
-	
+	public static Gender getGenderFromBeschreibug(String selectedItem) {
+		switch (selectedItem) {
+		case "Männlich":
+			return Gender.M;
 
+		case "Weiblich":
+			return Gender.F;
+
+		case "Apache Attack Helicopter":
+			return Gender.AAH;
+			
+		default:
+			return Gender.AAH;
+		}
+	}
 }
