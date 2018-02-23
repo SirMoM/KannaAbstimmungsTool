@@ -17,36 +17,24 @@ import javax.swing.*;
  */
 public class HauptView extends JFrame {
 	
-	private JPanel PersonErfassenView = new JPanel();
-	private JPanel ThemenAuswahlView = new JPanel();
+	private JPanel personErfassenView = new JPanel();
+	private JPanel themenAuswahlView = new JPanel();
+	private JPanel meinungsAbgabeView = new JPanel();
+	
+
+//	public static final int ROWCOUNT = 1;
+//	public static final int COLLUMCOUNT = 3;
+//	public static final String[] COLUMNAMES = new String[] {"Thema 1", "Thema 2", "Thema 3"};
 	
 	
-	public static final int ROWCOUNT = 1;
-	public static final int COLLUMCOUNT = 3;
-	public static final String[] COLUMNAMES = new String[] {"Thema 1", "Thema 2", "Thema 3"};
 	
 	
+
 	
-	
-	public enum Gender {
-		M("m", "Männlich"),
-		F("f", "Weiblich"),
-		AAH("aah", "Apache Attack Helicopter");
-		
-		private String code;
-		private String beschreibung;
-		
-		Gender( final String code, final String beschreibung ) {
-			this.code = code;
-			this.beschreibung = beschreibung;
-		}
-		
-	}
-	
-	
-	private JButton thema1 = new JButton("Tsda");
-	private JButton thema2 = new JButton();
-	private JButton thema3 = new JButton();
+	// ThemenAuswahlView Components
+	private MyButton thema1 = new MyButton("Thema 1", this);
+	private MyButton thema2 = new MyButton("Thema 1", this);
+	private MyButton thema3 = new MyButton("Thema 1", this);
 	
 	// PersonErfassenView Components
 	private JTextField introduction = new JTextField();
@@ -58,20 +46,6 @@ public class HauptView extends JFrame {
 	private JLabel genderLabel = new JLabel("Geschlecht");
 	
 	private MyButton datenErfassenButton = new MyButton("datenErfassenButton", this);
-	
-	
-	
-	
-	public JPanel getPersonErfassenView() {
-		return PersonErfassenView;
-	}
-
-	public JPanel getThemenAuswahlView() {
-		return ThemenAuswahlView;
-	}
-	
-	
-	
 	
 	/**
 	 * 
@@ -149,7 +123,6 @@ public class HauptView extends JFrame {
 	public void createAllComponents() {
 		thema1.setText("Thema 1");
 		thema1.setBackground(new Color(0, 255, 0));
-		thema1.addActionListener(new TestActionListener(this));
 		thema1.setActionCommand("asd");
 		System.out.println(thema1.getAction());
 		
@@ -183,20 +156,45 @@ public class HauptView extends JFrame {
 			}
 		});
 		
-		genderComboBox.addItem(Gender.M.beschreibung);
-		genderComboBox.addItem(Gender.F.beschreibung);
-		genderComboBox.addItem(Gender.AAH.beschreibung);
+		genderComboBox.addItem(Gender.M.getBeschreibung());
+		genderComboBox.addItem(Gender.F.getBeschreibung());
+		genderComboBox.addItem(Gender.AAH.getBeschreibung());
 		
 		datenErfassenButton.setText("Daten erfassen");
 		datenErfassenButton.setActionCommand("datenErfassenButton");
-		datenErfassenButton.addActionListener(new TestActionListener(this));
+		datenErfassenButton.addActionListener(new MyActionListener(datenErfassenButton));
 		
 	}
 	
-	public void toggleViews(JPanel thePanelToShow) {
+	public void setView(JPanel thePanelToShow) {
 		getContentPane().removeAll();
 		getContentPane().add(thePanelToShow);
 		getContentPane().doLayout();
+		thePanelToShow.doLayout();
+	}
+
+	public JPanel getPersonErfassenView() {
+		return personErfassenView;
+	}
+
+	public JPanel getThemenAuswahlView() {
+		return themenAuswahlView;
+	}
+
+	public JPanel getMeinungsAbgabeView() {
+		return meinungsAbgabeView;
+	}
+
+	public void setPersonErfassenView(JPanel personErfassenView) {
+		this.personErfassenView = personErfassenView;
+	}
+
+	public void setThemenAuswahlView(JPanel themenAuswahlView) {
+		this.themenAuswahlView = themenAuswahlView;
+	}
+
+	public void setMeinungsAbgabeView(JPanel meinungsAbgabeView) {
+		this.meinungsAbgabeView = meinungsAbgabeView;
 	}
 
 }

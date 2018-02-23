@@ -14,8 +14,7 @@ public class MainProgramm {
 		MyLogger.log("All hail Satan");
 		
 		HauptView x = new HauptView();
-		x.toggleViews(x.getThemenAuswahlView());
-		x.toggleViews(x.getPersonErfassenView());
+		x.setView(x.getPersonErfassenView());
 		
 	}
 }
