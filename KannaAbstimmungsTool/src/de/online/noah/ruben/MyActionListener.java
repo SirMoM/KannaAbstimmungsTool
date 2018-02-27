@@ -46,20 +46,21 @@ public class MyActionListener implements ActionListener {
 			break;
 
 		case "t1":
-			AbstimmungController.themaErfassen("t1");
+			AbstimmungController.themaErfassen("t1", 1);
 			//Change View
-			hauptView.setView(hauptView.getThemenAuswahlView());
+			hauptView.initMeinungsAbgabeView();
+			hauptView.setView(hauptView.getMeinungsAbgabeView());
 			break;
 
 		case "t2":
-			AbstimmungController.themaErfassen("t2");
+			AbstimmungController.themaErfassen("t2", 2);
 			//Change View
 			hauptView.setView(hauptView.getThemenAuswahlView());
 			break;
 
 
 		case "t3":
-			AbstimmungController.themaErfassen("t3");
+			AbstimmungController.themaErfassen("t3", 3);
 			//Change View
 			hauptView.setView(hauptView.getThemenAuswahlView());
 			break;

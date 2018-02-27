@@ -25,10 +25,8 @@ import javax.swing.WindowConstants;
 public class HauptView extends JFrame{
 
 	/**
-	 * 
+	 * 	Die aktuelle Abstimmung als Objetkt
 	 */
-	private static final long serialVersionUID = 2L;
-
 	private Abstimmung currentAbstimmung = new Abstimmung();
 
 	private JPanel personErfassenView = new JPanel();
@@ -54,7 +52,9 @@ public class HauptView extends JFrame{
 
 	//	meinungsAbgabeView Components
 	private JLabel question = new JLabel("Frage");
-	private JComboBox<String> answers = new JComboBox<String>(); 
+	private JComboBox<String> answers; 
+	private JLabel commentLabel = new JLabel("Kommentar");
+	private JTextField commentTextField = new JTextField();
 	
 	/**
 	 * 
@@ -77,14 +77,35 @@ public class HauptView extends JFrame{
 
 		initThemenAuswahlView();
 
-		initMeinungsAbgabeView();
-
 	}
 
-	private void initMeinungsAbgabeView() {
+	void initMeinungsAbgabeView() {
 		meinungsAbgabeView.setLayout(new GridBagLayout());
+		AnswerEnum buildViewFromThisAnswerEnum = AnswerEnum.getEnumFromId(AbstimmungController.getCurrentAbstimmung().getThemaId());
+		question.setText(buildViewFromThisAnswerEnum.getFrage());
+		answers = new JComboBox<>(buildViewFromThisAnswerEnum.getAntworten());
+		commentLabel.setText("Du kannst hier noch ein Kommentar abgeben");
+		commentTextField.setText("Dein Kommentar");
 		
 		
+		GridBagConstraints meinungsAbgabeViewConstraints = new GridBagConstraints();
+		meinungsAbgabeViewConstraints.insets = new Insets(20, 20, 20, 20);
+		meinungsAbgabeViewConstraints.fill = GridBagConstraints.HORIZONTAL;
+		
+		meinungsAbgabeViewConstraints.gridy = 0;
+		meinungsAbgabeViewConstraints.gridx = 0;
+		getMeinungsAbgabeView().add(question, meinungsAbgabeViewConstraints);
+
+		meinungsAbgabeViewConstraints.gridy = 1;
+		getMeinungsAbgabeView().add(answers, meinungsAbgabeViewConstraints);
+		
+		meinungsAbgabeViewConstraints.gridx = 1;
+		meinungsAbgabeViewConstraints.gridy = 2;
+		getMeinungsAbgabeView().add(commentLabel);
+		
+		meinungsAbgabeViewConstraints.gridy = 3;
+		getMeinungsAbgabeView().add(commentTextField);
+		getMeinungsAbgabeView().doLayout();
 	}
 
 	private void initPersonErfassenView() {

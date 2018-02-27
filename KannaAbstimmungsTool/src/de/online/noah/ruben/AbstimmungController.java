@@ -8,6 +8,10 @@ package de.online.noah.ruben;
  *
  */
 public class AbstimmungController {
+	
+	private AbstimmungController() throws UtilityClassException{
+		throw new UtilityClassException("Utility class");
+	}
 
 	private static Abstimmung currentAbstimmung =  new Abstimmung();
 
@@ -17,12 +21,13 @@ public class AbstimmungController {
 	}
 	
 	
-	public static void themaErfassen(String thema) {
+	public static void themaErfassen(String thema, int themaID) {
 		getCurrentAbstimmung().setPickedThema(thema);
+		getCurrentAbstimmung().setThemaId(themaID);
 	}
 	
 	
-	public static void antwortErfasssen(AnswerEnum antwort) {
+	public static void antwortErfasssen(String antwort) {
 		getCurrentAbstimmung().setAnswer(antwort);
 		
 	}

@@ -26,10 +26,11 @@ public class AbstimmungTest {
 	@Before
 	public void setUp() throws Exception {
 		classUnderTest = new Abstimmung();
-		classUnderTest.setAge(1);
-		classUnderTest.setAnswer(AnswerEnum.T1_ANSWERS);
+		classUnderTest.setAge(99);
+		classUnderTest.setAnswer(AnswerEnum.T1_ANSWERS.getAntworten()[0]);
 		classUnderTest.setGender(Gender.AAH);
-		classUnderTest.setPickedThema("1");
+		classUnderTest.setPickedThema("t1");
+		classUnderTest.setThemaId(1);
 	}
 
 	/**
@@ -37,11 +38,12 @@ public class AbstimmungTest {
 	 */
 	@Test
 	public void testToCSVString() {
-		assertEquals(classUnderTest.toCSVString(), "Abstimmung;1;Apache Attack Helicopter;1;bsp Antworttext");
+		assertEquals(classUnderTest.toCSVString(), "Abstimmung;99;Apache Attack Helicopter;1;Antwort 1");
 	}
 	
 	@Test
 	public void testToString() {
-		assertEquals(classUnderTest.toString(), "Abstimmung [age = 1, gender = Apache Attack Helicopter, pickedThema = 1, answer = bsp Antworttext]");
+												
+		assertEquals(classUnderTest.toString(), "Abstimmung [age = 99, gender = Apache Attack Helicopter, pickedThema = t1, themaId = 1, answer = Antwort 1]");
 	}
 }

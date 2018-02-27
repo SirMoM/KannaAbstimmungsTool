@@ -14,8 +14,7 @@ public class Abstimmung {
 	private Gender gender;
 	private String pickedThema;
 	private int themaId;
-	//TODO Antwort als String
-	private AnswerEnum answer;
+	private String answer;
 	/**
 	 * @return the age
 	 */
@@ -37,7 +36,7 @@ public class Abstimmung {
 	/**
 	 * @return the answer
 	 */
-	public AnswerEnum getAnswer() {
+	public String getAnswer() {
 		return answer;
 	}
 	public int getThemaId() {
@@ -67,20 +66,20 @@ public class Abstimmung {
 	/**
 	 * @param answer the answer to set
 	 */
-	public void setAnswer(AnswerEnum answer) {
+	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
 	
 	public String toCSVString() {
-		return "Abstimmung;" + getAge() + ";" + getGender().getBeschreibung() + ";" + getThemaId() + ";" + getAnswer().getAntworttext();
+		return "Abstimmung;" + getAge() + ";" + getGender().getBeschreibung() + ";" + getThemaId() + ";" + getAnswer();
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Abstimmung [age = " + getAge() + ", gender = " + getGender() + ", pickedThema = " + getPickedThema() + ", themaId = "
-				+ getThemaId() + ", answer = " + getAnswer().getAntworttext().hashCode() + "]";
+		return "Abstimmung [age = " + getAge() + ", gender = " + getGender().getBeschreibung() + ", pickedThema = " + getPickedThema() + ", themaId = "
+				+ getThemaId() + ", answer = " + getAnswer() + "]";
 	}
 	
 	
