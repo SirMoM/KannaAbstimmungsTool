@@ -55,14 +55,40 @@ public class MyActionListener implements ActionListener {
 		case "t2":
 			AbstimmungController.themaErfassen("t2", 2);
 			//Change View
-			hauptView.setView(hauptView.getThemenAuswahlView());
+			hauptView.initMeinungsAbgabeView();
+			hauptView.setView(hauptView.getMeinungsAbgabeView());
 			break;
 
 
 		case "t3":
 			AbstimmungController.themaErfassen("t3", 3);
 			//Change View
-			hauptView.setView(hauptView.getThemenAuswahlView());
+			hauptView.initMeinungsAbgabeView();
+			hauptView.setView(hauptView.getMeinungsAbgabeView());
+			break;
+
+		case "datenErfassenButton2":
+			AbstimmungController.antwortErfasssen(getAntwortDropDown());
+			AbstimmungController.getCurrentAbstimmung().setComment(hauptView.getCommentTextField().getText());
+			
+			if (!AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
+				JOptionPane.showMessageDialog(hauptView, "Die Abstimmung konnte nicht gewertet werden", "Ungültige Abstimmung", JOptionPane.ERROR_MESSAGE);
+				MyLogger.log("Ungultige Abstimmung");
+				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
+				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
+			}else {
+				//save Abstimmung
+				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
+				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
+				FileUsingClass.inCsvDateiSpeichern(AbstimmungController.getCurrentAbstimmung().toCSVString());
+			}
+			
+			
+			//reset Abstimmung
+			AbstimmungController.reset();
+			//Reset Views
+			hauptView.setVisible(false);
+			hauptView = new HauptView();
 			break;
 
 		default:
@@ -84,5 +110,9 @@ public class MyActionListener implements ActionListener {
 
 	private Gender getGenderFromDropDown() {
 		return Gender.getGenderFromBeschreibug((String) hauptView.getGenderComboBox().getSelectedItem());
+	}
+	
+	private String getAntwortDropDown() {
+		return (String) hauptView.getAnswers().getSelectedItem();
 	}
 }

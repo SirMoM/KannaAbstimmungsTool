@@ -3,8 +3,6 @@
  */
 package de.online.noah.ruben;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 /**
  * @author Noah Ruben
  *
@@ -15,6 +13,19 @@ public class Abstimmung {
 	private String pickedThema;
 	private int themaId;
 	private String answer;
+	private String comment;
+	
+	
+	
+	public boolean isValidAbstimmung() {
+		if(this.getAge() == 0 || this.getAnswer() == null || this.getComment() == null || this.getGender() == null || this.getPickedThema() == null || this.getThemaId() == 0 ) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	
 	/**
 	 * @return the age
 	 */
@@ -41,6 +52,18 @@ public class Abstimmung {
 	}
 	public int getThemaId() {
 		return themaId;
+	}
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public void setThemaId(int themaId) {
 		this.themaId = themaId;
@@ -71,7 +94,7 @@ public class Abstimmung {
 	}
 	
 	public String toCSVString() {
-		return "Abstimmung;" + getAge() + ";" + getGender().getBeschreibung() + ";" + getThemaId() + ";" + getAnswer();
+		return getAge() + ";" + getGender().getBeschreibung() + ";" + getThemaId() + ";" + getAnswer() + ";" + getComment();
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -79,7 +102,7 @@ public class Abstimmung {
 	@Override
 	public String toString() {
 		return "Abstimmung [age = " + getAge() + ", gender = " + getGender().getBeschreibung() + ", pickedThema = " + getPickedThema() + ", themaId = "
-				+ getThemaId() + ", answer = " + getAnswer() + "]";
+				+ getThemaId() + ", answer = " + getAnswer() + ", comment = " + getComment() +"]";
 	}
 	
 	

@@ -70,15 +70,16 @@ public class MyLogger{
 			} catch (IOException e) {
 				//Can't log cause MyLogger failed!
 			}
-
-			try {			
-				loggerFileWriter = new BufferedWriter(new FileWriter(loggerFile));
-				loggerFileWriter.write("Sir.MoM " + LocalDateTime.now().format(dateTimeFormatterFileCreation) + " LOG START");
-				loggerFileWriter.newLine();
-				loggerFileWriter.flush();
-			} catch (IOException e) {
-				//Can't log cause MyLogger failed!
-			}
+		}
+		
+		try {			
+			loggerFileWriter = new BufferedWriter(new FileWriter(loggerFile));
+			loggerFileWriter.write("Sir.MoM " + LocalDateTime.now().format(dateTimeFormatterFileCreation) + " LOG START");
+			loggerFileWriter.newLine();
+			loggerFileWriter.flush();
+		} catch (IOException e) {
+			//Can't log cause MyLogger failed!
 		}
 	}
+
 }

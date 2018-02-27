@@ -5,11 +5,9 @@ package de.online.noah.ruben;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -17,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import mockit.Expectations;
-import mockit.Mock;
 import mockit.Mocked;
 
 /**
@@ -67,7 +64,7 @@ public class FileUsingClassTest {
 	@Test
 	public void testInCsvDateiSpeichern(){
 		FileUsingClass.createDirAndFile();
-		FileUsingClass.inCsvDateiSpeichern("TestString");
+		FileUsingClass.inCsvDateiSpeichern("EinString");
 		
 		String zeile = null;
 		
@@ -80,7 +77,7 @@ public class FileUsingClassTest {
 			MyLogger.log(e.getStackTrace().toString(), e);
 		}
 		
-		assertEquals("TestString", zeile);
+		assertEquals("EinString", zeile);
 		
 	}
 	

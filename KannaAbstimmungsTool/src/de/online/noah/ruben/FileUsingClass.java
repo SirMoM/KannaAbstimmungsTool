@@ -32,8 +32,9 @@ public class FileUsingClass {
 	 * @param csvOutputString Der String der in die CSV-Datei zu speichern ist
 	 */
 	public static void inCsvDateiSpeichern(String csvOutputString) {
-		try(BufferedWriter bufferedWriterCsv = new BufferedWriter(new FileWriter(RESULTGCSV));) {
+		try(BufferedWriter bufferedWriterCsv = new BufferedWriter(new FileWriter(RESULTGCSV, true))) {
 			bufferedWriterCsv.write(csvOutputString);
+			bufferedWriterCsv.newLine();
 			bufferedWriterCsv.flush();
 		} catch (IOException e) {
 			MyLogger.log("Konnte nicht in CSV-Datei schreiben", e);

@@ -31,6 +31,7 @@ public class AbstimmungTest {
 		classUnderTest.setGender(Gender.AAH);
 		classUnderTest.setPickedThema("t1");
 		classUnderTest.setThemaId(1);
+		classUnderTest.setComment("Das ist ein Test-Kommentar");
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class AbstimmungTest {
 	 */
 	@Test
 	public void testToCSVString() {
-		assertEquals(classUnderTest.toCSVString(), "Abstimmung;99;Apache Attack Helicopter;1;Antwort 1");
+		assertEquals(classUnderTest.toCSVString(), "99;Apache Attack Helicopter;1;Antwort 1;Das ist ein Test-Kommentar");
 	}
 	
 	@Test
