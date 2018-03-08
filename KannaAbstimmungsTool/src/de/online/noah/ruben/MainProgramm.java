@@ -10,9 +10,13 @@ public class MainProgramm {
 		MyLogger.createLoggingDatei();
 		MyLogger.log("All hail Satan");
 		
-		HauptView x = new HauptView();
-		x.setView(x.getPersonErfassenView());
+		EinKommentarPanel testpanel = new EinKommentarPanel(Gender.AAH, 18, "DAS IST EIN KOMMENTAR UND JA ICH WEISS DAS ISCH SCHREIE", 1);
 		
+		testpanel.setVisible(true);
+		
+		HauptView x = new HauptView();
+//		x.setView(x.getPersonErfassenView());
+		x.setView(testpanel);
 	}
 }
 

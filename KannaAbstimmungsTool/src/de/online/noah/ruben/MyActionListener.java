@@ -74,25 +74,19 @@ public class MyActionListener implements ActionListener {
 			if (!AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
 				JOptionPane.showMessageDialog(hauptView, "Die Abstimmung konnte nicht gewertet werden", "Ungültige Abstimmung", JOptionPane.ERROR_MESSAGE);
 				MyLogger.log("Ungultige Abstimmung");
-				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
-				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
+				//Reset Views
+				hauptView.setVisible(false);
+				hauptView = new HauptView();
 			}else {
 				//save Abstimmung
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
 				FileUsingClass.inCsvDateiSpeichern(AbstimmungController.getCurrentAbstimmung().toCSVString());
+				AbstimmungController.reset();
 			}
-			
-			
-			//reset Abstimmung
-			AbstimmungController.reset();
-			//Reset Views
-			hauptView.setVisible(false);
-			hauptView = new HauptView();
 			break;
 
 		default:
-
 			MyLogger.log("[Default] Pressing this Button " + myButton.getMyName() + " did nothing");
 			break;
 		}
