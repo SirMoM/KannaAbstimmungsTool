@@ -31,7 +31,6 @@ public class HauptView extends JFrame{
 	private JPanel personErfassenView = new JPanel();
 	private JPanel themenAuswahlView = new JPanel();
 	private JPanel meinungsAbgabeView = new JPanel();
-	private JPanel kommentareView = new KommentarePanel();
 
 
 	// themenAuswahlView Components

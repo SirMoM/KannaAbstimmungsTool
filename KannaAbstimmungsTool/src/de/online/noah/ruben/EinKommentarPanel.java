@@ -25,11 +25,13 @@ import javax.swing.border.TitledBorder;
  */
 public class EinKommentarPanel extends JPanel {
 	
+	final Dimension size = new Dimension(500, 100);
+	
 	Gender gender;
 	int age;
 	String kommentar;
 	int fragenID;
-	final String PERSON_INFO = "%s, %s schreibt";
+	final String PERSON_INFO = "%s, %s schreibt: ";
 	
 	JTextArea rawKommentar = new JTextArea();
 	TitledBorder genderAndAgeInBorder;
@@ -42,12 +44,13 @@ public class EinKommentarPanel extends JPanel {
 		this.kommentar = kommentar;
 		this.fragenID = fragenID;
 		
+		this.setBackground(Color.WHITE);
+		
 		initAKommentar();
 	}
 	
 	public void initAKommentar() {
 		this.setLayout(new GridBagLayout());
-		this.setMaximumSize(new Dimension(500, 100));
 		
 		genderAndAgeInBorder = BorderFactory.createTitledBorder(blackline, String.format(PERSON_INFO, gender.getBeschreibung(), age));
 		genderAndAgeInBorder.setTitleJustification(TitledBorder.LEFT);
@@ -68,6 +71,9 @@ public class EinKommentarPanel extends JPanel {
 		kommentarGridBagConstraints.weighty = 3;
 
 		this.add(rawKommentar, kommentarGridBagConstraints);
+		this.setPreferredSize(size);
+		this.setMaximumSize(size);
+		this.setMinimumSize(size);
 		
 	}
 

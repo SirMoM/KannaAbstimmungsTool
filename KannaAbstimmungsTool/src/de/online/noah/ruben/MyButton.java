@@ -3,6 +3,8 @@
  */
 package de.online.noah.ruben;
 
+import java.awt.Container;
+
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -23,12 +25,12 @@ public class MyButton extends JButton {
 	 */
 
 	private String myName; 
-	private JFrame view;
+	private Container view;
 
 	/**
 	 * 
 	 */
-	public MyButton(String name, JFrame viewOfTheButten) {
+	public MyButton(String name, Container viewOfTheButten) {
 		this.myName = name;
 		this.view = viewOfTheButten;
 		this.addActionListener(new MyActionListener(this));
@@ -64,7 +66,7 @@ public class MyButton extends JButton {
 		this.myName = name;
 	}
 
-	public JFrame getView() {
+	public Container getView() {
 		return view;
 	}
 

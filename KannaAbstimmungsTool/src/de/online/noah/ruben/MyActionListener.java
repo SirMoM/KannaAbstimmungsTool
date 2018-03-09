@@ -3,10 +3,13 @@
  */
 package de.online.noah.ruben;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * @author Noah Ruben
@@ -15,6 +18,7 @@ import javax.swing.JOptionPane;
 public class MyActionListener implements ActionListener {
 
 	private MyButton myButton;
+	private JPanel view;
 	private HauptView hauptView;
 	
 	/**
@@ -23,7 +27,17 @@ public class MyActionListener implements ActionListener {
 	 */
 	public MyActionListener(MyButton myButton) {
 		this.myButton = myButton;
-		this.hauptView = (HauptView) myButton.getView();
+		try {
+			this.hauptView = (HauptView) myButton.getView();
+		} catch (Exception e) {
+			MyLogger.log(myButton.getMyName() + " is not a Button onto the Haupt View", e);
+		}
+		
+		try {
+			this.view = ((JPanel) myButton.getView());
+		} catch (Exception e) {
+			MyLogger.log(myButton.getMyName() + " is not a Button onto a JPanel", e);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -82,7 +96,10 @@ public class MyActionListener implements ActionListener {
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
 				FileUsingClass.inCsvDateiSpeichern(AbstimmungController.getCurrentAbstimmung().toCSVString());
-				AbstimmungController.reset();
+				KommentarePanel directAfterAstimung = new KommentarePanel();
+				hauptView.setView(directAfterAstimung);
+				hauptView.pack();
+				SwingUtilities.updateComponentTreeUI(hauptView);
 			}
 			break;
 

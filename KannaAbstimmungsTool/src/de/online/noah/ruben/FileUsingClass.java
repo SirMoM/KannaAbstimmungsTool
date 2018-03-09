@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Sir.MoM
@@ -42,27 +43,26 @@ public class FileUsingClass {
 	}
 	
 	/**
-	 * Gibt ein Array aus den Zeilen der Datei zurück
+	 * Gibt ein Array aus den Zeilen der Datei <code>RESULTGCSV</code> zurück
 	 * @return zeilenArray Das Array das zurück gegeben wird
 	 */
-	//TODO Mit String[][] vereinbar machen
-	public static String[][] stringArrayArrayAusCsv() {
-		ArrayList<String[]> zeilen = new ArrayList<String[]>();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static List<List> listAusCsv() {
+		List zeilen = new ArrayList<String[]>();
 		
 		try(BufferedReader bufferedReaderCsv = new BufferedReader(new FileReader(RESULTGCSV))){
-			
 			String zeile;
+
 			while((zeile = bufferedReaderCsv.readLine()) != null) {
 				zeilen.add(zeile.split(";"));
 			}
+			
 			bufferedReaderCsv.close();
+			
 		} catch (Exception e) {
 			MyLogger.log("Can't read CSV-File", e);
 		}
-		
-		String[][] zeilenArray = new String[zeilen.toArray().length][2];
-		zeilen.toArray(zeilenArray);
-		return zeilenArray;
+		return zeilen;
 	}
 	
 	public static void createDirAndFile() {
