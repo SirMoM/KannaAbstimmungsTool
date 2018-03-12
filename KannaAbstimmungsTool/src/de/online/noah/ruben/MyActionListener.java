@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -18,7 +19,7 @@ import javax.swing.SwingUtilities;
 public class MyActionListener implements ActionListener {
 
 	private MyButton myButton;
-	private JPanel view;
+	private KommentarePanel view;
 	private HauptView hauptView;
 	
 	/**
@@ -30,13 +31,14 @@ public class MyActionListener implements ActionListener {
 		try {
 			this.hauptView = (HauptView) myButton.getView();
 		} catch (Exception e) {
-			MyLogger.log(myButton.getMyName() + " is not a Button onto the Haupt View", e);
+//			MyLogger.log(myButton.getMyName() + " is not a Button onto the Haupt View", e);
 		}
 		
 		try {
-			this.view = ((JPanel) myButton.getView());
+			this.view = ((KommentarePanel) myButton.getView());
+			this.hauptView = view.getHauptView();
 		} catch (Exception e) {
-			MyLogger.log(myButton.getMyName() + " is not a Button onto a JPanel", e);
+//			MyLogger.log(myButton.getMyName() + " is not a Button onto a JPanel", e);
 		}
 	}
 
@@ -45,7 +47,7 @@ public class MyActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		MyLogger.log(event.paramString());
+//		MyLogger.log(event.paramString());
 
 		switch (event.getActionCommand()) {
 
@@ -96,11 +98,25 @@ public class MyActionListener implements ActionListener {
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
 				FileUsingClass.inCsvDateiSpeichern(AbstimmungController.getCurrentAbstimmung().toCSVString());
-				KommentarePanel directAfterAstimung = new KommentarePanel();
+				KommentarePanel directAfterAstimung = new KommentarePanel(hauptView);
 				hauptView.setView(directAfterAstimung);
-				hauptView.pack();
 				SwingUtilities.updateComponentTreeUI(hauptView);
 			}
+			break;
+
+		case "kommentareThema1":
+			hauptView.setView(new KommentarePanel(1, view.getHauptView()));
+			SwingUtilities.updateComponentTreeUI(hauptView);
+			break;
+		
+		case "kommentareThema2":
+			hauptView.setView(new KommentarePanel(2, view.getHauptView()));
+			SwingUtilities.updateComponentTreeUI(hauptView);
+			break;
+		
+		case "kommentareThema3":
+			hauptView.setView(new KommentarePanel(3, view.getHauptView()));
+			SwingUtilities.updateComponentTreeUI(hauptView);
 			break;
 
 		default:

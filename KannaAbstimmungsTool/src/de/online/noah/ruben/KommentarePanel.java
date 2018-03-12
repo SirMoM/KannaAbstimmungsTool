@@ -26,22 +26,26 @@ public class KommentarePanel extends JPanel {
 	private MyButton kommentareThema2 = new MyButton("kommentareThema2", this);
 	private MyButton kommentareThema3 = new MyButton("kommentareThema3", this);
 	private MyButton nächsteSeite = new MyButton("nächsteSeite", this);
+	private MyButton abstimmungBeenden = new MyButton("abstimmungBeenden", this);
 	
+	private final HauptView hauptView;
 	
 	/**
 	 * 
 	 */
-	public KommentarePanel(int frageID) {
+	public KommentarePanel(int frageID, HauptView hauptView) {
+		this.hauptView = hauptView; 
+		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
 		fillKommentar();
 		makeView(frageID);
-		this.setVisible(true);
 	}
 	
 	/**
 	 * 
 	 */
-	public KommentarePanel() {
+	public KommentarePanel(HauptView hauptView) {
+		this.hauptView = hauptView;
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
 		fillKommentar();
@@ -49,7 +53,7 @@ public class KommentarePanel extends JPanel {
 	}
 	
 	public void fillKommentar() {
-		ArrayList<String[]> alleZeilen = (ArrayList) FileUsingClass.listAusCsv();
+		ArrayList<String[]> alleZeilen = ((ArrayList) FileUsingClass.listAusCsv());
 		for (String[] abstimmung : alleZeilen) {
 			if(abstimmung.length == 5) {
 				EinKommentarPanel tempKommentarPanel = new EinKommentarPanel(Gender.getGenderFromBeschreibug(abstimmung[1]), Integer.valueOf(abstimmung[0]), abstimmung[4], Integer.valueOf(abstimmung[2]));
@@ -61,6 +65,7 @@ public class KommentarePanel extends JPanel {
 	}
 	
 	public void makeView(int frageID) {
+		this.removeAll();
 		
 		GridBagConstraints kommentarGridBagConstraints = new GridBagConstraints();
 		kommentarGridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -70,8 +75,11 @@ public class KommentarePanel extends JPanel {
 		kommentarGridBagConstraints.insets = new Insets(0, 0, 10, 0);
 		
 		kommentareThema1.setText("Kommentare zu Thema 1");
+		kommentareThema1.setActionCommand("kommentareThema1");
 		kommentareThema2.setText("Kommentare zu Thema 2");
+		kommentareThema2.setActionCommand("kommentareThema2");
 		kommentareThema3.setText("Kommentare zu Thema 3");
+		kommentareThema3.setActionCommand("kommentareThema3");
 
 		this.add(kommentareThema1, kommentarGridBagConstraints);
 		kommentarGridBagConstraints.gridx = 1;
@@ -93,6 +101,13 @@ public class KommentarePanel extends JPanel {
 				MyLogger.log(einKommentarPanel.kommentar + " ist kein Kommentar zur Frage mit der ID" + frageID);
 			}
 		}
+
+		abstimmungBeenden.setText("Abstimmung Beenden");
+		kommentarGridBagConstraints.gridwidth = 1;
+		kommentarGridBagConstraints.gridy++;
+		kommentarGridBagConstraints.gridx = 1;
+		this.add(abstimmungBeenden, kommentarGridBagConstraints);
+		
 	}
 
 	/**
@@ -134,6 +149,13 @@ public class KommentarePanel extends JPanel {
 		return nächsteSeite;
 	}
 
+
+	/**
+	 * @return the hauptView
+	 */
+	public HauptView getHauptView() {
+		return hauptView;
+	}
 
 	/**
 	 * @param kommentartPanels the kommentartPanels to set
