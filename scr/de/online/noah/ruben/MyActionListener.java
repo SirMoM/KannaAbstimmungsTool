@@ -19,27 +19,15 @@ import javax.swing.SwingUtilities;
 public class MyActionListener implements ActionListener {
 
 	private MyButton myButton;
-	private KommentarePanel view;
 	private HauptView hauptView;
-	
+
+
 	/**
 	 * @param myButton 
 	 * 
 	 */
-	public MyActionListener(MyButton myButton) {
-		this.myButton = myButton;
-		try {
-			this.hauptView = (HauptView) myButton.getView();
-		} catch (Exception e) {
-//			MyLogger.log(myButton.getMyName() + " is not a Button onto the Haupt View", e);
-		}
-		
-		try {
-			this.view = ((KommentarePanel) myButton.getView());
-			this.hauptView = view.getHauptView();
-		} catch (Exception e) {
-//			MyLogger.log(myButton.getMyName() + " is not a Button onto a JPanel", e);
-		}
+	public MyActionListener(HauptView hv) {
+		this.hauptView = hv;
 	}
 
 	/* (non-Javadoc)
@@ -47,15 +35,17 @@ public class MyActionListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
-//		MyLogger.log(event.paramString());
+		//		MyLogger.log(event.paramString());
 
 		switch (event.getActionCommand()) {
 
 		case "datenErfassenButton1":
+
 			try {
 				AbstimmungController.personenDatenErfassen(getAgeFromTextField(), getGenderFromDropDown());
 				//Change View
 				hauptView.setView(hauptView.getThemenAuswahlView());
+				MyLogger.log("##########-Themen Auswahl View-##########");
 			} catch (Exception e) {
 				MyLogger.log("getAgeFromTextField() failed", e);
 			}
@@ -66,6 +56,7 @@ public class MyActionListener implements ActionListener {
 			//Change View
 			hauptView.initMeinungsAbgabeView();
 			hauptView.setView(hauptView.getMeinungsAbgabeView());
+			MyLogger.log("##########-Meinungs Abgabe T1 View-##########");
 			break;
 
 		case "t2":
@@ -73,6 +64,7 @@ public class MyActionListener implements ActionListener {
 			//Change View
 			hauptView.initMeinungsAbgabeView();
 			hauptView.setView(hauptView.getMeinungsAbgabeView());
+			MyLogger.log("##########-Meinungs Abgabe T2 View-##########");
 			break;
 
 
@@ -81,18 +73,20 @@ public class MyActionListener implements ActionListener {
 			//Change View
 			hauptView.initMeinungsAbgabeView();
 			hauptView.setView(hauptView.getMeinungsAbgabeView());
+			MyLogger.log("##########-Meinungs Abgabe T3 View-##########");
 			break;
 
 		case "datenErfassenButton2":
 			AbstimmungController.antwortErfasssen(getAntwortDropDown());
 			AbstimmungController.getCurrentAbstimmung().setComment(hauptView.getCommentTextField().getText());
-			
+
 			if (!AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
 				JOptionPane.showMessageDialog(hauptView, "Die Abstimmung konnte nicht gewertet werden", "Ungültige Abstimmung", JOptionPane.ERROR_MESSAGE);
 				MyLogger.log("Ungultige Abstimmung");
 				//Reset Views
 				hauptView.setVisible(false);
 				hauptView = new HauptView();
+				MyLogger.log("##########-Neue Abstimmung-##########");
 			}else {
 				//save Abstimmung
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
@@ -101,22 +95,32 @@ public class MyActionListener implements ActionListener {
 				KommentarePanel directAfterAstimung = new KommentarePanel(hauptView);
 				hauptView.setView(directAfterAstimung);
 				SwingUtilities.updateComponentTreeUI(hauptView);
+				MyLogger.log("##########-Kommentare View nach der Abstimmung-##########");
 			}
 			break;
 
 		case "kommentareThema1":
-			hauptView.setView(new KommentarePanel(1, view.getHauptView()));
+			hauptView.setView(new KommentarePanel(1, hauptView));
 			SwingUtilities.updateComponentTreeUI(hauptView);
+			MyLogger.log("##########-Kommentare View Thema 1-##########");
 			break;
-		
+
 		case "kommentareThema2":
-			hauptView.setView(new KommentarePanel(2, view.getHauptView()));
+			hauptView.setView(new KommentarePanel(2, hauptView));
 			SwingUtilities.updateComponentTreeUI(hauptView);
+			MyLogger.log("##########-Kommentare View Thema 2-##########");
 			break;
-		
+
 		case "kommentareThema3":
-			hauptView.setView(new KommentarePanel(3, view.getHauptView()));
+			hauptView.setView(new KommentarePanel(3, hauptView));
 			SwingUtilities.updateComponentTreeUI(hauptView);
+			MyLogger.log("##########-Kommentare View Thema 3-##########");
+			break;
+
+		case "abstimmungBeenden":
+			hauptView.setVisible(false);
+			hauptView = new HauptView();
+			MyLogger.log("##########-Neue Abstimmung-##########");
 			break;
 
 		default:
@@ -138,8 +142,36 @@ public class MyActionListener implements ActionListener {
 	private Gender getGenderFromDropDown() {
 		return Gender.getGenderFromBeschreibug((String) hauptView.getGenderComboBox().getSelectedItem());
 	}
-	
+
 	private String getAntwortDropDown() {
 		return (String) hauptView.getAnswers().getSelectedItem();
+	}
+
+	/**
+	 * @return the myButton
+	 */
+	public MyButton getMyButton() {
+		return myButton;
+	}
+
+	/**
+	 * @return the hauptView
+	 */
+	public HauptView getHauptView() {
+		return hauptView;
+	}
+
+	/**
+	 * @param myButton the myButton to set
+	 */
+	public void setMyButton(MyButton myButton) {
+		this.myButton = myButton;
+	}
+
+	/**
+	 * @param hauptView the hauptView to set
+	 */
+	public void setHauptView(HauptView hauptView) {
+		this.hauptView = hauptView;
 	}
 }

@@ -21,37 +21,53 @@ import javax.swing.JPanel;
  */
 public class KommentarePanel extends JPanel {
 
+	private HauptView hauptView;
+
 	private List<EinKommentarPanel> kommentartPanels = new ArrayList<EinKommentarPanel>();
-	private MyButton kommentareThema1 = new MyButton("kommentareThema1", this);
-	private MyButton kommentareThema2 = new MyButton("kommentareThema2", this);
-	private MyButton kommentareThema3 = new MyButton("kommentareThema3", this);
-	private MyButton nächsteSeite = new MyButton("nächsteSeite", this);
-	private MyButton abstimmungBeenden = new MyButton("abstimmungBeenden", this);
-	
-	private final HauptView hauptView;
-	
+	private MyButton kommentareThema1;
+	private MyButton kommentareThema2;
+	private MyButton kommentareThema3;
+	private MyButton naechsteSeite;
+	private MyButton abstimmungBeenden;
+
+
 	/**
 	 * 
 	 */
 	public KommentarePanel(int frageID, HauptView hauptView) {
-		this.hauptView = hauptView; 
+		// Alle Variable bestuecken
+		this.hauptView = hauptView;
+		kommentareThema1 = new MyButton("kommentareThema1", hauptView.getMyActionListener());  
+		kommentareThema2 = new MyButton("kommentareThema2", hauptView.getMyActionListener());  
+		kommentareThema3 = new MyButton("kommentareThema3", hauptView.getMyActionListener());  
+		naechsteSeite 	 = new MyButton("nächsteSeite", hauptView.getMyActionListener());          
+		abstimmungBeenden= new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
+
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
+
 		fillKommentar();
 		makeView(frageID);
 	}
-	
 	/**
 	 * 
 	 */
 	public KommentarePanel(HauptView hauptView) {
+		// Alle Variable bestuecken
 		this.hauptView = hauptView;
+		kommentareThema1 = new MyButton("kommentareThema1", hauptView.getMyActionListener());  
+		kommentareThema2 = new MyButton("kommentareThema2", hauptView.getMyActionListener());  
+		kommentareThema3 = new MyButton("kommentareThema3", hauptView.getMyActionListener());  
+		naechsteSeite 	 = new MyButton("nächsteSeite", hauptView.getMyActionListener());          
+		abstimmungBeenden= new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
+
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
+
 		fillKommentar();
 		makeView(AbstimmungController.getCurrentAbstimmung().getThemaId());
 	}
-	
+
 	public void fillKommentar() {
 		ArrayList<String[]> alleZeilen = ((ArrayList) FileUsingClass.listAusCsv());
 		for (String[] abstimmung : alleZeilen) {
@@ -63,17 +79,17 @@ public class KommentarePanel extends JPanel {
 			}
 		}
 	}
-	
+
 	public void makeView(int frageID) {
 		this.removeAll();
-		
+
 		GridBagConstraints kommentarGridBagConstraints = new GridBagConstraints();
 		kommentarGridBagConstraints.fill = GridBagConstraints.BOTH;
 		kommentarGridBagConstraints.gridx = 0;
 		kommentarGridBagConstraints.gridy = 0;
 		kommentarGridBagConstraints.weightx = 1;
 		kommentarGridBagConstraints.insets = new Insets(0, 0, 10, 0);
-		
+
 		kommentareThema1.setText("Kommentare zu Thema 1");
 		kommentareThema1.setActionCommand("kommentareThema1");
 		kommentareThema2.setText("Kommentare zu Thema 2");
@@ -86,8 +102,8 @@ public class KommentarePanel extends JPanel {
 		this.add(kommentareThema2, kommentarGridBagConstraints);
 		kommentarGridBagConstraints.gridx = 2;
 		this.add(kommentareThema3, kommentarGridBagConstraints);
-		
-		
+
+
 		kommentarGridBagConstraints.gridx = 0;
 		kommentarGridBagConstraints.gridwidth = 3;
 		kommentarGridBagConstraints.gridy = 1;
@@ -103,11 +119,12 @@ public class KommentarePanel extends JPanel {
 		}
 
 		abstimmungBeenden.setText("Abstimmung Beenden");
+		abstimmungBeenden.setActionCommand("abstimmungBeenden");
 		kommentarGridBagConstraints.gridwidth = 1;
 		kommentarGridBagConstraints.gridy++;
 		kommentarGridBagConstraints.gridx = 1;
 		this.add(abstimmungBeenden, kommentarGridBagConstraints);
-		
+
 	}
 
 	/**
@@ -145,8 +162,8 @@ public class KommentarePanel extends JPanel {
 	/**
 	 * @return the nächsteSeite
 	 */
-	public MyButton getNächsteSeite() {
-		return nächsteSeite;
+	public MyButton getNaechsteSeite() {
+		return naechsteSeite;
 	}
 
 
@@ -192,11 +209,11 @@ public class KommentarePanel extends JPanel {
 	/**
 	 * @param nächsteSeite the nächsteSeite to set
 	 */
-	public void setNächsteSeite(MyButton nächsteSeite) {
-		this.nächsteSeite = nächsteSeite;
+	public void setNaechsteSeite(MyButton naechsteSeite) {
+		this.naechsteSeite = naechsteSeite;
 	}
-	
-	
-	
-	
+
+
+
+
 }

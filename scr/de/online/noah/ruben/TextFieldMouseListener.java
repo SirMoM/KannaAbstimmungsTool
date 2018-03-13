@@ -15,21 +15,21 @@ import javax.swing.JTextField;
 public class TextFieldMouseListener implements MouseListener {
 
 	private JTextField textField;
-	
+
 	/**
 	 * 
 	 */
 	public TextFieldMouseListener(JTextField textField) {
 		this.textField = textField;
 	}
-	
+
 	/**
 	 * 
 	 */
 	public TextFieldMouseListener() {
 		super();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
@@ -75,7 +75,7 @@ public class TextFieldMouseListener implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// Not needed
 	}
-	
+
 	private boolean isNotNullOrDefault() {
 		return textField.getText().equals("JJ") || textField.getText() == null ;
 	}

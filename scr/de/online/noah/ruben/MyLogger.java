@@ -71,7 +71,7 @@ public class MyLogger{
 				//Can't log cause MyLogger failed!
 			}
 		}
-		
+
 		try {			
 			loggerFileWriter = new BufferedWriter(new FileWriter(loggerFile));
 			loggerFileWriter.write("Sir.MoM " + LocalDateTime.now().format(dateTimeFormatterFileCreation) + " LOG START");

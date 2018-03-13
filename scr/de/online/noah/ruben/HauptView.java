@@ -23,6 +23,8 @@ import javax.swing.WindowConstants;
 @SuppressWarnings("serial")
 public class HauptView extends JFrame{
 
+	private final MyActionListener myActionListener = new MyActionListener(this); 
+
 	/**
 	 * 	Die aktuelle Abstimmung als Objetkt
 	 */
@@ -34,20 +36,20 @@ public class HauptView extends JFrame{
 
 
 	// themenAuswahlView Components
-	private MyButton thema1 = new MyButton("Thema 1", this);
-	private MyButton thema2 = new MyButton("Thema 2", this);
-	private MyButton thema3 = new MyButton("Thema 3", this);
+	private MyButton thema1 = new MyButton("Thema 1", myActionListener);
+	private MyButton thema2 = new MyButton("Thema 2", myActionListener);
+	private MyButton thema3 = new MyButton("Thema 3", myActionListener);
 
 	// personErfassenView Components
 	private JLabel introductionLabel = new JLabel();
 
-	private JTextField ageTextField = new JTextField();
+	private JTextField ageTextField = new JTextField("ageTextFieldMouseListener");
 	private JLabel ageLabel = new JLabel();
 
 	private JComboBox<String> genderComboBox = new JComboBox<>(); 
 	private JLabel genderLabel = new JLabel("Geschlecht");
 
-	private MyButton datenErfassenButton = new MyButton("Daten Erfassen Button", this);
+	private MyButton datenErfassenButton = new MyButton("Daten Erfassen Button", myActionListener);
 
 
 	//	meinungsAbgabeView Components
@@ -55,7 +57,7 @@ public class HauptView extends JFrame{
 	private JComboBox<String> answers = new JComboBox<>(); 
 	private JLabel commentLabel = new JLabel("Kommentar");
 	private JTextField commentTextField = new JTextField();
-	
+
 	/**
 	 * 
 	 */
@@ -63,8 +65,11 @@ public class HauptView extends JFrame{
 		super();
 		initViews();
 		setTitle("Kana Abstimmungs Tool");
-		setView(personErfassenView);
 		setVisible(true);
+		datenErfassenButton.setName("DatenErfB");
+		thema1.setName("t1");
+		thema2.setName("t2");
+		thema3.setName("t3");
 	}
 
 	public void initViews() {
@@ -81,30 +86,30 @@ public class HauptView extends JFrame{
 
 	void initMeinungsAbgabeView() {
 		AnswerEnum buildViewFromThisAnswerEnum = AnswerEnum.getEnumFromId(AbstimmungController.getCurrentAbstimmung().getThemaId());
-		
+
 		question.setText(buildViewFromThisAnswerEnum.getFrage());
-		
+
 		//Fill ComboBox
 		for (String str : buildViewFromThisAnswerEnum.getAntworten()) {
 			answers.addItem(str);
 		}
-		
-		
+
+
 		commentLabel.setText("Du kannst hier noch ein Kommentar abgeben");
-		
+
 		commentTextField.setText("");
 		commentTextField.setEditable(true);
 		commentTextField.addKeyListener(new MyTextFieldKeyBoardAdapter(commentTextField, 140));
-		
+
 		datenErfassenButton.setActionCommand("datenErfassenButton2");
-		
-		
+
+
 		getMeinungsAbgabeView().setLayout(new GridBagLayout());
 
 		GridBagConstraints meinungsAbgabeViewConstraints = new GridBagConstraints();
 		meinungsAbgabeViewConstraints.fill = GridBagConstraints.HORIZONTAL;
 		meinungsAbgabeViewConstraints.insets = new Insets(20, 20, 20, 20);
-		
+
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 0;
 		getMeinungsAbgabeView().add(question, meinungsAbgabeViewConstraints);
@@ -112,31 +117,32 @@ public class HauptView extends JFrame{
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 1;
 		getMeinungsAbgabeView().add(answers, meinungsAbgabeViewConstraints);
-		
+
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 2;
 		getMeinungsAbgabeView().add(commentLabel, meinungsAbgabeViewConstraints);
-		
+
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 3;
 		getMeinungsAbgabeView().add(commentTextField, meinungsAbgabeViewConstraints);
-		
+
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 4;
 		getMeinungsAbgabeView().add(datenErfassenButton, meinungsAbgabeViewConstraints);
-		
+
 	}
 
 	private void initPersonErfassenView() {
 		//Introduction Label
 		introductionLabel.setText("Bitte Alter und Geschlecht eingtagen");
-		
+
 		//Age Label
 		ageLabel.setText("Alter:");
 		ageLabel.setLabelFor(ageTextField);
-		
+
 		// Age Textfield 
 		ageTextField.setText("JJ");
+		ageTextField.setName("ageTextField");
 		ageTextField.setEditable(true);
 		ageTextField.addMouseListener(new TextFieldMouseListener(ageTextField));
 		ageTextField.addKeyListener(new MyTextFieldKeyBoardAdapter(ageTextField, 2));
@@ -145,11 +151,11 @@ public class HauptView extends JFrame{
 		genderComboBox.addItem(Gender.M.getBeschreibung());
 		genderComboBox.addItem(Gender.F.getBeschreibung());
 		genderComboBox.addItem(Gender.AAH.getBeschreibung());
-		
+
 		// Datenerfassen Button die 1.
 		datenErfassenButton.setText("Daten erfassen");
 		datenErfassenButton.setActionCommand("datenErfassenButton1");
-		
+
 		//Panel Setup
 		getPersonErfassenView().setLayout(new GridBagLayout());
 		getPersonErfassenView().setBackground(Color.CYAN);
@@ -157,8 +163,8 @@ public class HauptView extends JFrame{
 		GridBagConstraints personenViewConstraints = new GridBagConstraints();
 		personenViewConstraints.insets = new Insets(20, 20, 20, 20);
 		personenViewConstraints.fill = GridBagConstraints.HORIZONTAL;
-		
-		
+
+
 		personenViewConstraints.gridy = 0;
 		personenViewConstraints.gridx = 0;
 		personenViewConstraints.gridwidth = 2;
@@ -175,11 +181,11 @@ public class HauptView extends JFrame{
 		personenViewConstraints.gridy = 2; 
 		personenViewConstraints.gridx = 0;
 		getPersonErfassenView().add(genderLabel, personenViewConstraints);
-		
+
 		personenViewConstraints.gridy = 2; 
 		personenViewConstraints.gridx = 1;
 		getPersonErfassenView().add(genderComboBox, personenViewConstraints);
-		
+
 		personenViewConstraints.gridy = 3; 
 		personenViewConstraints.gridx = 1;
 		getPersonErfassenView().add(datenErfassenButton, personenViewConstraints);
@@ -262,6 +268,13 @@ public class HauptView extends JFrame{
 		return commentTextField;
 	}
 
+	/**
+	 * @return the myActionListener
+	 */
+	public MyActionListener getMyActionListener() {
+		return myActionListener;
+	}
+
 	public void setCurrentAbstimmung(Abstimmung currentAbstimmung) {
 		this.currentAbstimmung = currentAbstimmung;
 	}
@@ -291,5 +304,4 @@ public class HauptView extends JFrame{
 	public void setMeinungsAbgabeView(JPanel meinungsAbgabeView) {
 		this.meinungsAbgabeView = meinungsAbgabeView;
 	}
-
 }

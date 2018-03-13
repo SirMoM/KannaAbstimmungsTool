@@ -28,7 +28,7 @@ public class MyTextFieldKeyBoardAdapter extends KeyAdapter {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		if(myTextField.getText().length() >= anzahlErlaubterZeichen) {
-			MyLogger.log("Text out of Bounds");
+			MyLogger.log(myTextField.getName() + ", Age out of bounds!");
 			e.consume();
 		}
 	}

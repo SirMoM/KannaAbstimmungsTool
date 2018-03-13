@@ -25,15 +25,13 @@ public class MyButton extends JButton {
 	 */
 
 	private String myName; 
-	private Container view;
 
 	/**
 	 * 
 	 */
-	public MyButton(String name, Container viewOfTheButten) {
+	public MyButton(String name, MyActionListener myAL) {
 		this.myName = name;
-		this.view = viewOfTheButten;
-		this.addActionListener(new MyActionListener(this));
+		this.addActionListener(myAL);
 	}
 
 	/**
@@ -57,20 +55,12 @@ public class MyButton extends JButton {
 	public MyButton(String text, Icon icon) {
 		super(text, icon);
 	}
-	
+
 	public String getMyName() {
 		return myName;
 	}
 
 	public void setMyName(String name) {
 		this.myName = name;
-	}
-
-	public Container getView() {
-		return view;
-	}
-
-	public void setView(JFrame view) {
-		this.view = view;
 	}
 }
