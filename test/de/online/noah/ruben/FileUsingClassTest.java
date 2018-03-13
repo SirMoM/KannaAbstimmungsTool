@@ -3,7 +3,6 @@
  */
 package de.online.noah.ruben;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -109,7 +108,7 @@ public class FileUsingClassTest {
 		
 		FileUsingClass.inCsvDateiSpeichern("x;y;z");
 		
-		assertArrayEquals(FileUsingClass.stringArrayArrayAusCsv(), exp2 );
+		assertEquals(FileUsingClass.listAusCsv(), exp2 );
 		
 	}
 }
