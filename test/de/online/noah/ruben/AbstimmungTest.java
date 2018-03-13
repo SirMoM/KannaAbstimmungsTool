@@ -4,12 +4,13 @@
 package de.online.noah.ruben;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.*;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import de.online.noah.ruben.Abstimmung;
-import de.online.noah.ruben.AnswerEnum;
-import de.online.noah.ruben.Gender;
 
 /**
  * @author Noah Ruben
@@ -19,7 +20,7 @@ import de.online.noah.ruben.Gender;
 public class AbstimmungTest {
 
 	private Abstimmung classUnderTest;
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -39,12 +40,22 @@ public class AbstimmungTest {
 	 */
 	@Test
 	public void testToCSVString() {
-		assertEquals(classUnderTest.toCSVString(), "99;Apache Attack Helicopter;1;Antwort 1;Das ist ein Test-Kommentar");
+		assertEquals(classUnderTest.toCSVString(),
+				"99;Apache Attack Helicopter;1;Antwort 1;Das ist ein Test-Kommentar");
 	}
-	
+
 	@Test
 	public void testToString() {
-												
-		assertEquals(classUnderTest.toString(), "Abstimmung [age = 99, gender = Apache Attack Helicopter, pickedThema = t1, themaId = 1, answer = Antwort 1]");
+		String result = classUnderTest.toString();
+		String expectedResult = "Abstimmung [age = 99, gender = Apache Attack Helicopter, pickedThema = t1, themaId = 1, answer = Antwort 1, comment = Das ist ein Test-Kommentar]";
+		
+		assertThat(result, is(expectedResult));
+	}
+
+	@Test
+	public void testIsValidAbstimmung() {
+		assertTrue(classUnderTest.isValidAbstimmung());
+		classUnderTest.setAnswer(null);
+		assertFalse(classUnderTest.isValidAbstimmung());
 	}
 }

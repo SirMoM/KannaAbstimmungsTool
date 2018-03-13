@@ -66,10 +66,7 @@ public class HauptView extends JFrame{
 		initViews();
 		setTitle("Kana Abstimmungs Tool");
 		setVisible(true);
-		datenErfassenButton.setName("DatenErfB");
-		thema1.setName("t1");
-		thema2.setName("t2");
-		thema3.setName("t3");
+		this.setView(this.getPersonErfassenView());
 	}
 
 	public void initViews() {
