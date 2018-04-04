@@ -20,6 +20,7 @@ public class MyActionListener implements ActionListener {
 
 	private MyButton myButton;
 	private HauptView hauptView;
+	KommentarePanel theKommentarePanel;
 
 
 	/**
@@ -36,7 +37,7 @@ public class MyActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		//		MyLogger.log(event.paramString());
-
+		
 		switch (event.getActionCommand()) {
 
 		case "datenErfassenButton1":
@@ -92,27 +93,30 @@ public class MyActionListener implements ActionListener {
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toCSVString());
 				MyLogger.log(AbstimmungController.getCurrentAbstimmung().toString());
 				FileUsingClass.inCsvDateiSpeichern(AbstimmungController.getCurrentAbstimmung().toCSVString());
-				KommentarePanel directAfterAstimung = new KommentarePanel(hauptView);
-				hauptView.setView(directAfterAstimung);
+				theKommentarePanel = new KommentarePanel(hauptView);
+				hauptView.setView(theKommentarePanel);
 				SwingUtilities.updateComponentTreeUI(hauptView);
 				MyLogger.log("##########-Kommentare View nach der Abstimmung-##########");
 			}
 			break;
 
 		case "kommentareThema1":
-			hauptView.setView(new KommentarePanel(1, hauptView));
+			theKommentarePanel = new KommentarePanel(1, hauptView);
+			hauptView.setView(theKommentarePanel);
 			SwingUtilities.updateComponentTreeUI(hauptView);
 			MyLogger.log("##########-Kommentare View Thema 1-##########");
 			break;
 
 		case "kommentareThema2":
-			hauptView.setView(new KommentarePanel(2, hauptView));
+			theKommentarePanel = new KommentarePanel(2, hauptView);
+			hauptView.setView(theKommentarePanel);
 			SwingUtilities.updateComponentTreeUI(hauptView);
 			MyLogger.log("##########-Kommentare View Thema 2-##########");
 			break;
 
 		case "kommentareThema3":
-			hauptView.setView(new KommentarePanel(3, hauptView));
+			theKommentarePanel = new KommentarePanel(3, hauptView);
+			hauptView.setView(theKommentarePanel);
 			SwingUtilities.updateComponentTreeUI(hauptView);
 			MyLogger.log("##########-Kommentare View Thema 3-##########");
 			break;
@@ -122,7 +126,21 @@ public class MyActionListener implements ActionListener {
 			hauptView = new HauptView();
 			MyLogger.log("##########-Neue Abstimmung-##########");
 			break;
+		
+		case "vorherigeSeite":
+			MyLogger.log("Vorherige Seite");
+			this.theKommentarePanel.nextMiddlePanel();
+			this.theKommentarePanel.makeView(theKommentarePanel.getFrageId());
+			SwingUtilities.updateComponentTreeUI(hauptView);
+			break;
 
+		case "naechsteSeite":
+			MyLogger.log("Naechste Seite");
+			this.theKommentarePanel.previousMiddlePanel();
+			this.theKommentarePanel.makeView(theKommentarePanel.getFrageId());
+			SwingUtilities.updateComponentTreeUI(hauptView);
+			break;
+	
 		default:
 			MyLogger.log("[Default] Pressing this Button " + myButton.getMyName() + " did nothing");
 			break;

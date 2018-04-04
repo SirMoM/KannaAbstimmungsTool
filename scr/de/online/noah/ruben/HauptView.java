@@ -70,7 +70,7 @@ public class HauptView extends JFrame{
 	}
 
 	public void initViews() {
-		this.setSize(1000,500);
+		this.setSize(1600,900);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setLayout(new GridLayout(1,1));

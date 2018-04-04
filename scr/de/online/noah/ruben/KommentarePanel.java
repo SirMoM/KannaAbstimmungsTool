@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.io.EOFException;
@@ -23,15 +24,19 @@ import javax.swing.JPanel;
 public class KommentarePanel extends JPanel {
 
 	private HauptView hauptView;
-
+	private int middlePanelIndex = 0;
+	private final int middlePanelIndexCap;
 	private List<EinKommentarPanel> kommentartPanels = new ArrayList<EinKommentarPanel>();
 	private MyButton kommentareThema1;
 	private MyButton kommentareThema2;
 	private MyButton kommentareThema3;
-	private MyButton naechsteSeite;
+	private MyButton vorherigeSeite;
 	private MyButton abstimmungBeenden;
+	private MyButton naechsteSeite;
+	
+	private int frageId;
 
-	private JPanel middlePanel;
+	private List<JPanel> middlePanels;
 
 	/**
 	 * 
@@ -39,19 +44,22 @@ public class KommentarePanel extends JPanel {
 	public KommentarePanel(int frageID, HauptView hauptView) {
 		// Alle Variable bestuecken
 		this.hauptView = hauptView;
+		
+		this.frageId = frageID;
+		
 		kommentareThema1 = new MyButton("kommentareThema1", hauptView.getMyActionListener());
 		kommentareThema2 = new MyButton("kommentareThema2", hauptView.getMyActionListener());
 		kommentareThema3 = new MyButton("kommentareThema3", hauptView.getMyActionListener());
-		naechsteSeite = new MyButton("nächsteSeite", hauptView.getMyActionListener());
+		vorherigeSeite = new MyButton("vorherigeSeite", hauptView.getMyActionListener());
 		abstimmungBeenden = new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
-
-		middlePanel = new JPanel(new GridBagLayout());
-
+		naechsteSeite = new MyButton("naechsteSeite", hauptView.getMyActionListener());
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
 
-		fillKommentar();
-		makeView(frageID);
+		fillKommentarPanels();
+		middlePanels = createMiddlepanels(frageId);
+		middlePanelIndexCap = middlePanels.size() - 1;
+		makeView(frageId);
 	}
 
 	/**
@@ -60,22 +68,53 @@ public class KommentarePanel extends JPanel {
 	public KommentarePanel(HauptView hauptView) {
 		// Alle Variable bestuecken
 		this.hauptView = hauptView;
+		
+		this.frageId = AbstimmungController.getCurrentAbstimmung().getThemaId();
+		
 		kommentareThema1 = new MyButton("kommentareThema1", hauptView.getMyActionListener());
 		kommentareThema2 = new MyButton("kommentareThema2", hauptView.getMyActionListener());
 		kommentareThema3 = new MyButton("kommentareThema3", hauptView.getMyActionListener());
-		naechsteSeite = new MyButton("nächsteSeite", hauptView.getMyActionListener());
+		vorherigeSeite = new MyButton("vorherigeSeite", hauptView.getMyActionListener());
 		abstimmungBeenden = new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
-
-		middlePanel = new JPanel(new GridBagLayout());
+		naechsteSeite = new MyButton("nächsteSeite", hauptView.getMyActionListener());
 
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
 
-		fillKommentar();
-		makeView(AbstimmungController.getCurrentAbstimmung().getThemaId());
+		fillKommentarPanels();
+		middlePanels = createMiddlepanels(frageId);
+		middlePanelIndexCap = middlePanels.size();
+		makeView(frageId);
 	}
 
-	public void fillKommentar() {
+	private List<JPanel> createMiddlepanels(int frageID) {
+		List<JPanel> kommentareForThisFrage = new ArrayList<>();
+		List<JPanel> listOfPanels = new ArrayList<>();
+		
+		for (EinKommentarPanel einKommentarPanel : kommentartPanels) {
+			if (einKommentarPanel.fragenID == frageID) {
+				kommentareForThisFrage.add(einKommentarPanel);
+			}
+		}
+
+		for (int i = 0; i < kommentareForThisFrage.size(); i += 5) {
+			JPanel tempJPanel = new JPanel(new GridLayout(5,1));
+			
+			for (int j = 0; j < 5; j++) {
+				try {
+					tempJPanel.add(kommentareForThisFrage.get(i + j));
+				} catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+					MyLogger.log("", indexOutOfBoundsException);
+					break;
+				}
+			}
+			listOfPanels.add(tempJPanel);
+		}
+
+		return listOfPanels;
+	}
+
+	public void fillKommentarPanels() {
 		ArrayList<String[]> alleZeilen = ((ArrayList) FileUsingClass.listAusCsv());
 		for (String[] abstimmung : alleZeilen) {
 			if (abstimmung.length == 5) {
@@ -101,6 +140,12 @@ public class KommentarePanel extends JPanel {
 
 		abstimmungBeenden.setText("Abstimmung Beenden");
 		abstimmungBeenden.setActionCommand("abstimmungBeenden");
+		
+		vorherigeSeite.setText("Vorherige Seite");
+		vorherigeSeite.setActionCommand("vorherigeSeite");
+		
+		naechsteSeite.setText("Nächste Seite");
+		naechsteSeite.setActionCommand("naechsteSeite");
 
 		kommentareThema1.setText("Kommentare zu Thema 1");
 		kommentareThema1.setActionCommand("kommentareThema1");
@@ -118,44 +163,40 @@ public class KommentarePanel extends JPanel {
 		kommentarGridBagConstraints.gridy = 1;
 		kommentarGridBagConstraints.gridx = 1;
 
-		this.add(createMiddlePanel(frageID), kommentarGridBagConstraints);
+		this.add(middlePanels.get(middlePanelIndex), kommentarGridBagConstraints);
 
 		kommentarGridBagConstraints.gridwidth = 1;
+		
+		kommentarGridBagConstraints.gridy = 2;
+		kommentarGridBagConstraints.gridx = 0;
+		this.add(vorherigeSeite, kommentarGridBagConstraints);
+		
 		kommentarGridBagConstraints.gridy = 2;
 		kommentarGridBagConstraints.gridx = 1;
 		this.add(abstimmungBeenden, kommentarGridBagConstraints);
+				
+		kommentarGridBagConstraints.gridy = 2;
+		kommentarGridBagConstraints.gridx = 2;
+		this.add(naechsteSeite, kommentarGridBagConstraints);
 
 	}
 
-	private Component createMiddlePanel(int frageID) {
-		List<EinKommentarPanel> kommentarePanelsToRemove = new ArrayList<EinKommentarPanel>();
+	public void nextMiddlePanel() {
+		middlePanelIndexCircle(1);
+	}
 
-		GridBagConstraints middlePanelConstraints = new GridBagConstraints();
-		middlePanelConstraints.gridx = 0;
-		middlePanelConstraints.gridy = 0;
-		middlePanelConstraints.insets = new Insets(0, 0, 10, 0);
+	public void previousMiddlePanel() {
+		middlePanelIndexCircle(-1);
+	}
 
-		middlePanel.setBackground(Color.WHITE);
-		int zaehler = 0;
-		for (EinKommentarPanel einKommentarPanel : kommentartPanels) {
-			if (zaehler < 5) {
-				if (frageID == einKommentarPanel.fragenID) {
-					einKommentarPanel.setVisible(true);
-					middlePanel.add(einKommentarPanel, middlePanelConstraints);
-					MyLogger.log(einKommentarPanel.kommentar + " ist ein Kommentar zur Frage mit der ID" + frageID);
-					middlePanelConstraints.gridy++;
-					zaehler++;
-					kommentarePanelsToRemove.add(einKommentarPanel);
-				} else {
-					MyLogger.log(einKommentarPanel.kommentar + " ist kein Kommentar zur Frage mit der ID" + frageID);
-				}
-			}
+	private void middlePanelIndexCircle(int shift) {
+		if ((middlePanelIndex + shift)  > middlePanelIndexCap) {
+			middlePanelIndex =  0;
+		} else if ((middlePanelIndex + shift)  < 0) {
+			middlePanelIndex = middlePanelIndexCap;
+		} else {
+			middlePanelIndex = middlePanelIndex + shift;
 		}
-
-		for (int i = 0; i < kommentartPanels.size(); i++) {
-			kommentartPanels.remove(i);
-		} 		
-		return middlePanel;
 	}
 
 	/**
@@ -240,4 +281,10 @@ public class KommentarePanel extends JPanel {
 		this.naechsteSeite = naechsteSeite;
 	}
 
+	/**
+	 * @return the frageId
+	 */
+	public int getFrageId() {
+		return frageId;
+	}
 }
