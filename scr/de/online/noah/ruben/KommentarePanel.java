@@ -23,16 +23,20 @@ import javax.swing.JPanel;
  */
 public class KommentarePanel extends JPanel {
 
+	private final Color kanaOrange = new Color(255, 150, 0);
+	private final Color black = Color.BLACK;
+	private final Color white = Color.WHITE;
+	
 	private HauptView hauptView;
 	private int middlePanelIndex = 0;
 	private final int middlePanelIndexCap;
 	private List<EinKommentarPanel> kommentartPanels = new ArrayList<EinKommentarPanel>();
-	private MyButton kommentareThema1;
-	private MyButton kommentareThema2;
-	private MyButton kommentareThema3;
-	private MyButton vorherigeSeite;
-	private MyButton abstimmungBeenden;
-	private MyButton naechsteSeite;
+	private MyButton kommentareThema1Button;
+	private MyButton kommentareThema2Button;
+	private MyButton kommentareThema3Button;
+	private MyButton vorherigeSeiteButton;
+	private MyButton abstimmungBeendenButton;
+	private MyButton naechsteSeiteButton;
 	
 	private int frageId;
 
@@ -47,13 +51,13 @@ public class KommentarePanel extends JPanel {
 		
 		this.frageId = frageID;
 		
-		kommentareThema1 = new MyButton("kommentareThema1", hauptView.getMyActionListener());
-		kommentareThema2 = new MyButton("kommentareThema2", hauptView.getMyActionListener());
-		kommentareThema3 = new MyButton("kommentareThema3", hauptView.getMyActionListener());
-		vorherigeSeite = new MyButton("vorherigeSeite", hauptView.getMyActionListener());
-		abstimmungBeenden = new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
-		naechsteSeite = new MyButton("naechsteSeite", hauptView.getMyActionListener());
-		this.setBackground(Color.WHITE);
+		kommentareThema1Button = new MyButton("kommentareThema1", hauptView.getMyActionListener());
+		kommentareThema2Button = new MyButton("kommentareThema2", hauptView.getMyActionListener());
+		kommentareThema3Button = new MyButton("kommentareThema3", hauptView.getMyActionListener());
+		vorherigeSeiteButton = new MyButton("vorherigeSeite", hauptView.getMyActionListener());
+		abstimmungBeendenButton = new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
+		naechsteSeiteButton = new MyButton("naechsteSeite", hauptView.getMyActionListener());
+		this.setBackground(black);
 		this.setLayout(new GridBagLayout());
 
 		fillKommentarPanels();
@@ -71,14 +75,14 @@ public class KommentarePanel extends JPanel {
 		
 		this.frageId = AbstimmungController.getCurrentAbstimmung().getThemaId();
 		
-		kommentareThema1 = new MyButton("kommentareThema1", hauptView.getMyActionListener());
-		kommentareThema2 = new MyButton("kommentareThema2", hauptView.getMyActionListener());
-		kommentareThema3 = new MyButton("kommentareThema3", hauptView.getMyActionListener());
-		vorherigeSeite = new MyButton("vorherigeSeite", hauptView.getMyActionListener());
-		abstimmungBeenden = new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
-		naechsteSeite = new MyButton("nächsteSeite", hauptView.getMyActionListener());
+		kommentareThema1Button = new MyButton("kommentareThema1", hauptView.getMyActionListener());
+		kommentareThema2Button = new MyButton("kommentareThema2", hauptView.getMyActionListener());
+		kommentareThema3Button = new MyButton("kommentareThema3", hauptView.getMyActionListener());
+		vorherigeSeiteButton = new MyButton("vorherigeSeite", hauptView.getMyActionListener());
+		abstimmungBeendenButton = new MyButton("abstimmungBeenden", hauptView.getMyActionListener());
+		naechsteSeiteButton = new MyButton("nächsteSeite", hauptView.getMyActionListener());
 
-		this.setBackground(Color.WHITE);
+		this.setBackground(black);
 		this.setLayout(new GridBagLayout());
 
 		fillKommentarPanels();
@@ -99,6 +103,7 @@ public class KommentarePanel extends JPanel {
 
 		for (int i = 0; i < kommentareForThisFrage.size(); i += 5) {
 			JPanel tempJPanel = new JPanel(new GridLayout(5,1));
+			tempJPanel.setBackground(black);
 			
 			for (int j = 0; j < 5; j++) {
 				try {
@@ -138,46 +143,58 @@ public class KommentarePanel extends JPanel {
 		kommentarGridBagConstraints.weightx = 1;
 		kommentarGridBagConstraints.insets = new Insets(0, 0, 10, 0);
 
-		abstimmungBeenden.setText("Abstimmung Beenden");
-		abstimmungBeenden.setActionCommand("abstimmungBeenden");
+		abstimmungBeendenButton.setText("Abstimmung Beenden");
+		abstimmungBeendenButton.setActionCommand("abstimmungBeenden");
+		abstimmungBeendenButton.setBackground(kanaOrange);
 		
-		vorherigeSeite.setText("Vorherige Seite");
-		vorherigeSeite.setActionCommand("vorherigeSeite");
+		vorherigeSeiteButton.setText("Vorherige Seite");
+		vorherigeSeiteButton.setActionCommand("vorherigeSeite");
+		vorherigeSeiteButton.setBackground(kanaOrange);
 		
-		naechsteSeite.setText("Nächste Seite");
-		naechsteSeite.setActionCommand("naechsteSeite");
+		naechsteSeiteButton.setText("Nächste Seite");
+		naechsteSeiteButton.setActionCommand("naechsteSeite");
+		naechsteSeiteButton.setBackground(kanaOrange);
 
-		kommentareThema1.setText("Kommentare zu Thema 1");
-		kommentareThema1.setActionCommand("kommentareThema1");
-		kommentareThema2.setText("Kommentare zu Thema 2");
-		kommentareThema2.setActionCommand("kommentareThema2");
-		kommentareThema3.setText("Kommentare zu Thema 3");
-		kommentareThema3.setActionCommand("kommentareThema3");
+		kommentareThema1Button.setText("Kommentare zu Thema 1");
+		kommentareThema1Button.setActionCommand("kommentareThema1");
+		kommentareThema1Button.setBackground(kanaOrange);
+		
+		kommentareThema2Button.setText("Kommentare zu Thema 2");
+		kommentareThema2Button.setActionCommand("kommentareThema2");
+		kommentareThema2Button.setBackground(kanaOrange);
+		
+		kommentareThema3Button.setText("Kommentare zu Thema 3");
+		kommentareThema3Button.setActionCommand("kommentareThema3");
+		kommentareThema3Button.setBackground(kanaOrange);
 
-		this.add(kommentareThema1, kommentarGridBagConstraints);
+		this.add(kommentareThema1Button, kommentarGridBagConstraints);
 		kommentarGridBagConstraints.gridx = 1;
-		this.add(kommentareThema2, kommentarGridBagConstraints);
+		this.add(kommentareThema2Button, kommentarGridBagConstraints);
 		kommentarGridBagConstraints.gridx = 2;
-		this.add(kommentareThema3, kommentarGridBagConstraints);
+		this.add(kommentareThema3Button, kommentarGridBagConstraints);
 
 		kommentarGridBagConstraints.gridy = 1;
 		kommentarGridBagConstraints.gridx = 1;
 
-		this.add(middlePanels.get(middlePanelIndex), kommentarGridBagConstraints);
+		try {
+			this.add(middlePanels.get(middlePanelIndex), kommentarGridBagConstraints);
+		} catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+			MyLogger.log("Middle Panel size: " + middlePanels.size() + " middlePanelIndex: " + middlePanelIndex, indexOutOfBoundsException);
+		}
 
 		kommentarGridBagConstraints.gridwidth = 1;
 		
 		kommentarGridBagConstraints.gridy = 2;
 		kommentarGridBagConstraints.gridx = 0;
-		this.add(vorherigeSeite, kommentarGridBagConstraints);
+		this.add(vorherigeSeiteButton, kommentarGridBagConstraints);
 		
 		kommentarGridBagConstraints.gridy = 2;
 		kommentarGridBagConstraints.gridx = 1;
-		this.add(abstimmungBeenden, kommentarGridBagConstraints);
+		this.add(abstimmungBeendenButton, kommentarGridBagConstraints);
 				
 		kommentarGridBagConstraints.gridy = 2;
 		kommentarGridBagConstraints.gridx = 2;
-		this.add(naechsteSeite, kommentarGridBagConstraints);
+		this.add(naechsteSeiteButton, kommentarGridBagConstraints);
 
 	}
 
@@ -210,28 +227,28 @@ public class KommentarePanel extends JPanel {
 	 * @return the kommentareThema1
 	 */
 	public MyButton getKommentareThema1() {
-		return kommentareThema1;
+		return kommentareThema1Button;
 	}
 
 	/**
 	 * @return the kommentareThema2
 	 */
 	public MyButton getKommentareThema2() {
-		return kommentareThema2;
+		return kommentareThema2Button;
 	}
 
 	/**
 	 * @return the kommentareThema3
 	 */
 	public MyButton getKommentareThema3() {
-		return kommentareThema3;
+		return kommentareThema3Button;
 	}
 
 	/**
 	 * @return the nächsteSeite
 	 */
 	public MyButton getNaechsteSeite() {
-		return naechsteSeite;
+		return naechsteSeiteButton;
 	}
 
 	/**
@@ -254,7 +271,7 @@ public class KommentarePanel extends JPanel {
 	 *            the kommentareThema1 to set
 	 */
 	public void setKommentareThema1(MyButton kommentareThema1) {
-		this.kommentareThema1 = kommentareThema1;
+		this.kommentareThema1Button = kommentareThema1;
 	}
 
 	/**
@@ -262,7 +279,7 @@ public class KommentarePanel extends JPanel {
 	 *            the kommentareThema2 to set
 	 */
 	public void setKommentareThema2(MyButton kommentareThema2) {
-		this.kommentareThema2 = kommentareThema2;
+		this.kommentareThema2Button = kommentareThema2;
 	}
 
 	/**
@@ -270,7 +287,7 @@ public class KommentarePanel extends JPanel {
 	 *            the kommentareThema3 to set
 	 */
 	public void setKommentareThema3(MyButton kommentareThema3) {
-		this.kommentareThema3 = kommentareThema3;
+		this.kommentareThema3Button = kommentareThema3;
 	}
 
 	/**
@@ -278,7 +295,7 @@ public class KommentarePanel extends JPanel {
 	 *            the nächsteSeite to set
 	 */
 	public void setNaechsteSeite(MyButton naechsteSeite) {
-		this.naechsteSeite = naechsteSeite;
+		this.naechsteSeiteButton = naechsteSeite;
 	}
 
 	/**

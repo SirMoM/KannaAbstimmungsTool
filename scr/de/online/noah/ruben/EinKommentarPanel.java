@@ -20,10 +20,14 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 /**
- * @author i13az81
+ * @author Noah Ruben
  *
  */
 public class EinKommentarPanel extends JPanel {
+	
+	private final Color kanaOrange = new Color(255, 150, 0);
+	private final Color black = Color.BLACK;
+	private final Color white = Color.WHITE;
 	
 	final Dimension size = new Dimension(500, 100);
 	
@@ -35,7 +39,7 @@ public class EinKommentarPanel extends JPanel {
 	
 	JTextArea rawKommentar = new JTextArea();
 	TitledBorder genderAndAgeInBorder;
-	Border blackline = BorderFactory.createLineBorder(Color.black);
+	Border blackline = BorderFactory.createLineBorder(kanaOrange);
 
 	public EinKommentarPanel(Gender gender, int age, String kommentar, int fragenID) {
 		super();
@@ -44,7 +48,7 @@ public class EinKommentarPanel extends JPanel {
 		this.kommentar = kommentar;
 		this.fragenID = fragenID;
 		
-		this.setBackground(Color.WHITE);
+		this.setBackground(black);
 		
 		initAKommentar();
 	}
@@ -54,9 +58,12 @@ public class EinKommentarPanel extends JPanel {
 		
 		genderAndAgeInBorder = BorderFactory.createTitledBorder(blackline, String.format(PERSON_INFO, gender.getBeschreibung(), age));
 		genderAndAgeInBorder.setTitleJustification(TitledBorder.LEFT);
+		genderAndAgeInBorder.setTitleColor(kanaOrange);
 		this.setBorder(genderAndAgeInBorder);
 		
 		rawKommentar.setText(kommentar);
+		rawKommentar.setForeground(kanaOrange);
+		rawKommentar.setBackground(black);
 		
 		
 		GridBagConstraints kommentarGridBagConstraints = new GridBagConstraints();

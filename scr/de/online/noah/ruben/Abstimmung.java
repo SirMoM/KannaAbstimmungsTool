@@ -104,6 +104,15 @@ public class Abstimmung {
 		return "Abstimmung [age = " + getAge() + ", gender = " + getGender().getBeschreibung() + ", pickedThema = " + getPickedThema() + ", themaId = "
 				+ getThemaId() + ", answer = " + getAnswer() + ", comment = " + getComment() +"]";
 	}
+
+
+	public boolean isEasterEgg() {
+		if(getComment().equals("666") && getAge() == 88) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	
 	

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 /**
  * @author Noah Ruben
@@ -81,6 +82,11 @@ public class MyActionListener implements ActionListener {
 			AbstimmungController.antwortErfasssen(getAntwortDropDown());
 			AbstimmungController.getCurrentAbstimmung().setComment(hauptView.getCommentTextField().getText());
 
+			if(AbstimmungController.getCurrentAbstimmung().isEasterEgg() && AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
+				MyLogger.log("Easter Egg aktivated");
+				EasterEggFrame easterEggFrame = new EasterEggFrame();
+			}
+			
 			if (!AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
 				JOptionPane.showMessageDialog(hauptView, "Die Abstimmung konnte nicht gewertet werden", "Ungültige Abstimmung", JOptionPane.ERROR_MESSAGE);
 				MyLogger.log("Ungultige Abstimmung");

@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +23,9 @@ import javax.swing.WindowConstants;
  */
 @SuppressWarnings("serial")
 public class HauptView extends JFrame{
+	private final Color kanaOrange = new Color(255, 150, 0);
+	private final Color black = Color.BLACK;
+	private final Color white = Color.WHITE;
 
 	private final MyActionListener myActionListener = new MyActionListener(this); 
 
@@ -30,7 +34,7 @@ public class HauptView extends JFrame{
 	 */
 	private Abstimmung currentAbstimmung = new Abstimmung();
 
-	private JPanel personErfassenView = new JPanel();
+	private JPanel personErfassenView =  new JPanel();
 	private JPanel themenAuswahlView = new JPanel();
 	private JPanel meinungsAbgabeView = new JPanel();
 
@@ -47,14 +51,14 @@ public class HauptView extends JFrame{
 	private JLabel ageLabel = new JLabel();
 
 	private JComboBox<String> genderComboBox = new JComboBox<>(); 
-	private JLabel genderLabel = new JLabel("Geschlecht");
+	private JLabel genderLabel = new JLabel();
 
 	private MyButton datenErfassenButton = new MyButton("Daten Erfassen Button", myActionListener);
 
 
 	//	meinungsAbgabeView Components
-	private JLabel question = new JLabel("Frage");
-	private JComboBox<String> answers = new JComboBox<>(); 
+	private JLabel questionLabel = new JLabel("Frage");
+	private JComboBox<String> answersComboBox = new JComboBox<>(); 
 	private JLabel commentLabel = new JLabel("Kommentar");
 	private JTextField commentTextField = new JTextField();
 
@@ -62,7 +66,7 @@ public class HauptView extends JFrame{
 	 * 
 	 */
 	public HauptView() {
-		super();
+		this.getContentPane().setBackground(black);
 		initViews();
 		setTitle("Kana Abstimmungs Tool");
 		setVisible(true);
@@ -70,10 +74,8 @@ public class HauptView extends JFrame{
 	}
 
 	public void initViews() {
-		this.setSize(1600,900);
+		this.setSize(1920,1080);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setBackground(Color.LIGHT_GRAY);
-		this.setLayout(new GridLayout(1,1));
 
 		initPersonErfassenView();
 
@@ -84,24 +86,29 @@ public class HauptView extends JFrame{
 	void initMeinungsAbgabeView() {
 		AnswerEnum buildViewFromThisAnswerEnum = AnswerEnum.getEnumFromId(AbstimmungController.getCurrentAbstimmung().getThemaId());
 
-		question.setText(buildViewFromThisAnswerEnum.getFrage());
-
+		questionLabel.setText(buildViewFromThisAnswerEnum.getFrage());
+		questionLabel.setForeground(kanaOrange);
+		
 		//Fill ComboBox
+		answersComboBox.setBackground(kanaOrange);
 		for (String str : buildViewFromThisAnswerEnum.getAntworten()) {
-			answers.addItem(str);
+			answersComboBox.addItem(str);
 		}
 
 
 		commentLabel.setText("Du kannst hier noch ein Kommentar abgeben");
-
+		commentLabel.setForeground(kanaOrange);
+		
 		commentTextField.setText("");
 		commentTextField.setEditable(true);
 		commentTextField.addKeyListener(new MyTextFieldKeyBoardAdapter(commentTextField, 140));
-
+		commentTextField.setBackground(kanaOrange);
+		
 		datenErfassenButton.setActionCommand("datenErfassenButton2");
 
 
 		getMeinungsAbgabeView().setLayout(new GridBagLayout());
+		getMeinungsAbgabeView().setBackground(black);
 
 		GridBagConstraints meinungsAbgabeViewConstraints = new GridBagConstraints();
 		meinungsAbgabeViewConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -109,11 +116,11 @@ public class HauptView extends JFrame{
 
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 0;
-		getMeinungsAbgabeView().add(question, meinungsAbgabeViewConstraints);
+		getMeinungsAbgabeView().add(questionLabel, meinungsAbgabeViewConstraints);
 
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 1;
-		getMeinungsAbgabeView().add(answers, meinungsAbgabeViewConstraints);
+		getMeinungsAbgabeView().add(answersComboBox, meinungsAbgabeViewConstraints);
 
 		meinungsAbgabeViewConstraints.gridx = 0;
 		meinungsAbgabeViewConstraints.gridy = 2;
@@ -132,30 +139,45 @@ public class HauptView extends JFrame{
 	private void initPersonErfassenView() {
 		//Introduction Label
 		introductionLabel.setText("Bitte Alter und Geschlecht eingtagen");
+		introductionLabel.setForeground(kanaOrange);
 
 		//Age Label
 		ageLabel.setText("Alter:");
 		ageLabel.setLabelFor(ageTextField);
+		ageLabel.setForeground(kanaOrange);
 
 		// Age Textfield 
-		ageTextField.setText("JJ");
+		ageTextField.setText("");
 		ageTextField.setName("ageTextField");
 		ageTextField.setEditable(true);
 		ageTextField.addMouseListener(new TextFieldMouseListener(ageTextField));
 		ageTextField.addKeyListener(new MyTextFieldKeyBoardAdapter(ageTextField, 2));
+		ageTextField.setBackground(kanaOrange);
+		ageTextField.setForeground(black);
+		
+		//Gender Label
+		genderLabel.setName("genderLabel");
+		genderLabel.setText("Geschlecht: ");
+		genderLabel.setForeground(kanaOrange);
 
 		//Gender Combobox /Dropdown Menue
 		genderComboBox.addItem(Gender.M.getBeschreibung());
 		genderComboBox.addItem(Gender.F.getBeschreibung());
 		genderComboBox.addItem(Gender.AAH.getBeschreibung());
+		genderComboBox.setBackground(kanaOrange);
+		genderComboBox.setForeground(black);
+
 
 		// Datenerfassen Button die 1.
 		datenErfassenButton.setText("Daten erfassen");
 		datenErfassenButton.setActionCommand("datenErfassenButton1");
+		datenErfassenButton.setBackground(kanaOrange);
+		datenErfassenButton.setForeground(black);
 
 		//Panel Setup
 		getPersonErfassenView().setLayout(new GridBagLayout());
-		getPersonErfassenView().setBackground(Color.CYAN);
+		getPersonErfassenView().setBackground(black);
+		getPersonErfassenView().setForeground(kanaOrange);
 
 		GridBagConstraints personenViewConstraints = new GridBagConstraints();
 		personenViewConstraints.insets = new Insets(20, 20, 20, 20);
@@ -193,18 +215,18 @@ public class HauptView extends JFrame{
 	private void initThemenAuswahlView() {
 		// Thema 1 Button
 		thema1.setText("Thema 1");
-		thema1.setBackground(new Color(0, 255, 0));
+		thema1.setBackground(kanaOrange);
 		thema1.setActionCommand("t1");
 
 
 		// Thema 2 Button
 		thema2.setText("Thema 2");
-		thema2.setBackground(new Color(0, 255, 0));
+		thema2.setBackground(kanaOrange);
 		thema2.setActionCommand("t2");
 
 		// Thema 3 Button
 		thema3.setText("Thema 3");
-		thema3.setBackground(new Color(0, 255, 0));
+		thema3.setBackground(kanaOrange);
 		thema3.setActionCommand("t3");
 
 		// Panel Setup
@@ -255,7 +277,7 @@ public class HauptView extends JFrame{
 	 * @return the answers
 	 */
 	public JComboBox<String> getAnswers() {
-		return answers;
+		return answersComboBox;
 	}
 
 	/**
