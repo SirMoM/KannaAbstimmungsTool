@@ -84,7 +84,7 @@ public class MyActionListener implements ActionListener {
 
 			if(AbstimmungController.getCurrentAbstimmung().isEasterEgg() && AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
 				MyLogger.log("Easter Egg aktivated");
-				EasterEggFrame easterEggFrame = new EasterEggFrame();
+				EasterEggFrame easterEggFrame = new EasterEggFrame(hauptView);
 			}
 			
 			if (!AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {

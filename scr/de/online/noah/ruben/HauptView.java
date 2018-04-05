@@ -147,7 +147,7 @@ public class HauptView extends JFrame{
 		ageLabel.setForeground(kanaOrange);
 
 		// Age Textfield 
-		ageTextField.setText("");
+		ageTextField.setText("JJ");
 		ageTextField.setName("ageTextField");
 		ageTextField.setEditable(true);
 		ageTextField.addMouseListener(new TextFieldMouseListener(ageTextField));

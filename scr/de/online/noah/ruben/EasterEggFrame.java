@@ -20,12 +20,12 @@ import javax.swing.WindowConstants;
 public class EasterEggFrame extends JFrame {
 
 	//TODO Relative Path
-	JLabel background = new JLabel(new ImageIcon("C:\\Users\\i13az81\\git\\KannaAbstimmungsTool\\scr\\de\\online\\noah\\ruben\\bilder\\satan.jpg"));
+	JLabel background = new JLabel(new ImageIcon("../KannaAbstimmungsTool/bilder/satan.jpg"));
 	
 	/**
 	 * @param gc
 	 */
-	public EasterEggFrame() {
+	public EasterEggFrame(HauptView hauptView) {
 	    setLayout(new BorderLayout());
 	    add(background);
 	    background.setLayout(new FlowLayout());
@@ -35,6 +35,7 @@ public class EasterEggFrame extends JFrame {
 	    this.getContentPane().setBackground(Color.BLACK);
 	    this.doLayout();
 	    this.setAlwaysOnTop(true);
+	    this.setLocationRelativeTo(hauptView);
 	    this.setVisible(true);
 	    
 	    MyLogger.log("Finished building Easter Egg");

@@ -87,7 +87,7 @@ public class KommentarePanel extends JPanel {
 
 		fillKommentarPanels();
 		middlePanels = createMiddlepanels(frageId);
-		middlePanelIndexCap = middlePanels.size();
+		middlePanelIndexCap = middlePanels.size() - 1;
 		makeView(frageId);
 	}
 
