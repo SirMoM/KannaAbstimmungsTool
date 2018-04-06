@@ -4,14 +4,10 @@
 package de.online.noah.ruben;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -23,11 +19,11 @@ import javax.swing.border.TitledBorder;
  * @author Noah Ruben
  *
  */
+@SuppressWarnings("serial")
 public class EinKommentarPanel extends JPanel {
 	
 	private final Color kanaOrange = new Color(255, 150, 0);
 	private final Color black = Color.BLACK;
-	private final Color white = Color.WHITE;
 	
 	final Dimension size = new Dimension(500, 100);
 	

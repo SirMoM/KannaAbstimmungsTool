@@ -3,12 +3,9 @@
  */
 package de.online.noah.ruben;
 
-import java.awt.Container;
-
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  * @author Noah Ruben

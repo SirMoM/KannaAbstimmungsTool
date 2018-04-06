@@ -15,20 +15,21 @@ import javax.swing.WindowConstants;
 /**
  * @author Noah Ruben
  * @created 05.04.2018
- * @version //TODO
+ * @version 0.0.1
  */
+@SuppressWarnings("serial")
 public class EasterEggFrame extends JFrame {
 
-	//TODO Relative Path
-	JLabel background = new JLabel(new ImageIcon("../KannaAbstimmungsTool/bilder/satan.jpg"));
+	JLabel cutomBackground = new JLabel(new ImageIcon("../KannaAbstimmungsTool/bilder/satan.jpg"));
 	
 	/**
-	 * @param gc
+	 * @param hauptView the Frame to put it on top
+	 * 
 	 */
 	public EasterEggFrame(HauptView hauptView) {
 	    setLayout(new BorderLayout());
-	    add(background);
-	    background.setLayout(new FlowLayout());
+	    add(cutomBackground);
+	    cutomBackground.setLayout(new FlowLayout());
 	    this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    this.setTitle("SATAN ist mit dir");
 	    this.setSize(474, 355);

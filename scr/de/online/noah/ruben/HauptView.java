@@ -9,7 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +24,6 @@ import javax.swing.WindowConstants;
 public class HauptView extends JFrame{
 	private final Color kanaOrange = new Color(255, 150, 0);
 	private final Color black = Color.BLACK;
-	private final Color white = Color.WHITE;
 
 	private final MyActionListener myActionListener = new MyActionListener(this); 
 

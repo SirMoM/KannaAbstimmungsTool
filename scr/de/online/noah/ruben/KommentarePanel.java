@@ -4,16 +4,12 @@
 package de.online.noah.ruben;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
@@ -21,11 +17,11 @@ import javax.swing.JPanel;
  * @author i13az81
  *
  */
+@SuppressWarnings("serial")
 public class KommentarePanel extends JPanel {
 
 	private final Color kanaOrange = new Color(255, 150, 0);
 	private final Color black = Color.BLACK;
-	private final Color white = Color.WHITE;
 	
 	private HauptView hauptView;
 	private int middlePanelIndex = 0;
@@ -119,8 +115,9 @@ public class KommentarePanel extends JPanel {
 		return listOfPanels;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void fillKommentarPanels() {
-		ArrayList<String[]> alleZeilen = ((ArrayList) FileUsingClass.listAusCsv());
+		ArrayList<String[]> alleZeilen = new ArrayList(FileUsingClass.listAusCsv());
 		for (String[] abstimmung : alleZeilen) {
 			if (abstimmung.length == 5) {
 				EinKommentarPanel tempKommentarPanel = new EinKommentarPanel(
@@ -219,7 +216,7 @@ public class KommentarePanel extends JPanel {
 	/**
 	 * @return the kommentartPanels
 	 */
-	public List getKommentartPanels() {
+	public List<EinKommentarPanel> getKommentartPanels() {
 		return kommentartPanels;
 	}
 
@@ -262,7 +259,7 @@ public class KommentarePanel extends JPanel {
 	 * @param kommentartPanels
 	 *            the kommentartPanels to set
 	 */
-	public void setKommentartPanels(List kommentartPanels) {
+	public void setKommentartPanels(List<EinKommentarPanel> kommentartPanels) {
 		this.kommentartPanels = kommentartPanels;
 	}
 

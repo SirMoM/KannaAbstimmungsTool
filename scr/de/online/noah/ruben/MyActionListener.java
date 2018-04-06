@@ -3,15 +3,11 @@
  */
 package de.online.noah.ruben;
 
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
 
 /**
  * @author Noah Ruben
@@ -84,7 +80,7 @@ public class MyActionListener implements ActionListener {
 
 			if(AbstimmungController.getCurrentAbstimmung().isEasterEgg() && AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
 				MyLogger.log("Easter Egg aktivated");
-				EasterEggFrame easterEggFrame = new EasterEggFrame(hauptView);
+				new EasterEggFrame(hauptView);
 			}
 			
 			if (!AbstimmungController.getCurrentAbstimmung().isValidAbstimmung()) {
