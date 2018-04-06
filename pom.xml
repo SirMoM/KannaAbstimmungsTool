@@ -7,16 +7,12 @@
 	<version>0.0.1</version>
 	<name>KanaAbstimmungsTool</name>
 	<build>
-		<sourceDirectory>scr</sourceDirectory>
-		<testSourceDirectory>test</testSourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<resource>
-						<directory>./../bilder</directory>
-						<filtering>false</filtering>
-					</resource>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>

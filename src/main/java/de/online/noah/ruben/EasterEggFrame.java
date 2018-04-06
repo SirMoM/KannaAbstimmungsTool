@@ -6,6 +6,8 @@ package de.online.noah.ruben;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,30 +23,26 @@ import javax.swing.WindowConstants;
 public class EasterEggFrame extends JFrame {
 
 	JLabel cutomBackground;
-	
+
 	/**
-	 * @param hauptView the Frame to put it on top
+	 * @param hauptView
+	 *            the Frame to put it on top
 	 * 
 	 */
 	public EasterEggFrame(HauptView hauptView) {
-		try {
-			cutomBackground = new JLabel(new ImageIcon("../bilder/satan.jpg"));
-		} catch (Exception exception) {
-			MyLogger.log("Could not summon Satan", exception);
-		}
-		
-	    setLayout(new BorderLayout());
-	    add(cutomBackground);
-	    cutomBackground.setLayout(new FlowLayout());
-	    this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	    this.setTitle("SATAN ist mit dir");
-	    this.setSize(474, 355);
-	    this.getContentPane().setBackground(Color.BLACK);
-	    this.doLayout();
-	    this.setAlwaysOnTop(true);
-	    this.setLocationRelativeTo(hauptView);
-	    this.setVisible(true);
-	    
-	    MyLogger.log("Finished building Easter Egg");
+		cutomBackground = new JLabel(new ImageIcon("satan.jpg"));
+		setLayout(new BorderLayout());
+		add(cutomBackground);
+		cutomBackground.setLayout(new FlowLayout());
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setTitle("Satan ist mit dir!");
+		this.setSize(474, 355);
+		this.getContentPane().setBackground(Color.BLACK);
+		this.doLayout();
+		this.setAlwaysOnTop(true);
+		this.setLocationRelativeTo(hauptView);
+		this.setVisible(true);
+
+		MyLogger.log("Finished building Easter Egg");
 	}
 }
