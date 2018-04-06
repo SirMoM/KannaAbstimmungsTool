@@ -22,7 +22,7 @@ public class MyLogger{
 
 	//	final static File THEDIR = new File(System.getProperties().getProperty("user.home") + "\\Documents\\KanaUmfrageTool\\" );
 
-	static final File THEDIR = new File("C:\\_PDATEN\\i13az81" + "\\Documents\\KanaUmfrageTool\\" );
+	static final File THEDIR = new File(System.getProperty("java.io.tmpdir") + "\\KanaUmfrageTool\\" );
 
 	private static File loggerFile = new File(THEDIR.getAbsolutePath()+ "\\LOG" + LocalDateTime.now().format(dateTimeFormatterFileCreation) + ".log");
 

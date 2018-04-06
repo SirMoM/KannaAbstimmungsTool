@@ -13,6 +13,10 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
+					<resource>
+						<directory>./../bilder</directory>
+						<filtering>false</filtering>
+					</resource>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>

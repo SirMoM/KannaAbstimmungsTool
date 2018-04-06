@@ -20,13 +20,19 @@ import javax.swing.WindowConstants;
 @SuppressWarnings("serial")
 public class EasterEggFrame extends JFrame {
 
-	JLabel cutomBackground = new JLabel(new ImageIcon("../KannaAbstimmungsTool/bilder/satan.jpg"));
+	JLabel cutomBackground;
 	
 	/**
 	 * @param hauptView the Frame to put it on top
 	 * 
 	 */
 	public EasterEggFrame(HauptView hauptView) {
+		try {
+			cutomBackground = new JLabel(new ImageIcon("../bilder/satan.jpg"));
+		} catch (Exception exception) {
+			MyLogger.log("Could not summon Satan", exception);
+		}
+		
 	    setLayout(new BorderLayout());
 	    add(cutomBackground);
 	    cutomBackground.setLayout(new FlowLayout());

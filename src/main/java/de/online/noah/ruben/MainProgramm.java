@@ -6,6 +6,7 @@ package de.online.noah.ruben;
  */
 public class MainProgramm {
 	public static void main(String[] args) {
+		System.out.println(System.getProperty("java.io.tmpdir"));
 		FileUsingClass.createDirAndFile();
 		MyLogger.createLoggingDatei();
 		MyLogger.log("All hail Satan");
