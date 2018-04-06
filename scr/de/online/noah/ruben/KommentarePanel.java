@@ -119,8 +119,9 @@ public class KommentarePanel extends JPanel {
 		return listOfPanels;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void fillKommentarPanels() {
-		ArrayList<String[]> alleZeilen = ((ArrayList) FileUsingClass.listAusCsv());
+		ArrayList<String[]> alleZeilen = new ArrayList(FileUsingClass.listAusCsv());
 		for (String[] abstimmung : alleZeilen) {
 			if (abstimmung.length == 5) {
 				EinKommentarPanel tempKommentarPanel = new EinKommentarPanel(
