@@ -6,6 +6,7 @@ package de.online.noah.ruben;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -30,7 +31,7 @@ public class EasterEggFrame extends JFrame {
 	 * 
 	 */
 	public EasterEggFrame(HauptView hauptView) {
-		cutomBackground = new JLabel(new ImageIcon("satan.jpg"));
+		cutomBackground = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pictures/satan.jpg"))));
 		setLayout(new BorderLayout());
 		add(cutomBackground);
 		cutomBackground.setLayout(new FlowLayout());
